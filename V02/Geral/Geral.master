@@ -1,0 +1,85 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="Geral.master.cs" Inherits="Geral_Geral" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <link rel="stylesheet" href="../StyleSheet.css" type="text/css" />
+    <title></title>
+    <asp:ContentPlaceHolder id="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="form1" runat="server"> 
+
+           <div id="templatemo_container">
+        <div id="templatemo_topsection">
+          <div id="templatemo_topsection_title">
+              <asp:Image ID="Image1" ImageUrl="~/images/page.png" runat="server" />
+          </div>
+            <div class="templatemo_topmenu">
+                <asp:ImageButton  Width="55px" ID="ImageButton1"  runat="server" CssClass="icones" ImageUrl="~/images/info.png" title="Informações" PostBackUrl="~/Cliente/informacaocli.aspx" />
+                   
+                     <asp:ImageButton ImageUrl="~/images/emergencia.png" Width="55px" ID="ImageButton3" runat="server"  CssClass="icones" title="Emergências" PostBackUrl="~/Cliente/emergenciac.aspx"/>
+                 
+                    <asp:ImageButton ImageUrl="~/images/globe.png" Width="55px" ID="ImageButton5" runat="server" CssClass="icones" title="Áreas de Actuação" PostBackUrl="~/Cliente/areac.aspx"  />
+                    <asp:ImageButton ImageUrl="~/images/contacto.png" Width="55px" ID="ImageButton6" runat="server" CssClass="icones" title="Contactos" PostBackUrl="~/Cliente/contactosc.aspx"  />
+                     <asp:LoginView ID="LoginView1" runat="server">
+                        <LoggedInTemplate>
+                         <asp:LoginName ID="LoginName1" runat="server" />
+                        <asp:LoginStatus ID="LoginStatus1" runat="server" />
+                        </LoggedInTemplate>
+                      
+                         </asp:LoginView>
+       
+            </div>
+               
+            <asp:ContentPlaceHolder ID="ContentPlaceHolder3" runat="server">
+            </asp:ContentPlaceHolder>
+               
+        </div>
+          
+            
+        <div id="templatemo_left_column">
+            <div id="templatemo_left_top">
+                <asp:Image ID="Image2" ImageUrl="~/images/GNR.png" runat="server" />
+                <asp:Image ID="Image4" ImageUrl="~/images/penacova.jpg" runat="server" Height="160px" Width="219px" ImageAlign="Middle" />
+            </div>
+           
+                
+    </div>
+    
+               
+     <div id="templatemo_right_column">
+         <div id="templatemo_right_top"></div>
+   <div id="templatemo_right_mid"> 
+       <asp:ContentPlaceHolder ID="ContentPlaceHolder4" runat="server">
+       </asp:ContentPlaceHolder>
+         </div>
+          </div>    
+    <div id="templatemo_right_bot">
+            Rua Dr.Carlos Barbosa, 17, Murtosa (freguesia)<br />
+        918192275 | 927699774<br />
+        mobilvet.geral@gmail.com<br />
+           
+    </div>
+                
+           
+           
+
+        
+             
+                
+        <br />
+               
+   
+               
+   
+        </div>
+               
+   
+         </form>
+
+</body>
+</html>
+

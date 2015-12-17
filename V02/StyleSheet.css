@@ -1,0 +1,245 @@
+﻿html {
+	background: url(images/templatemo_html_bg.jpg) repeat;
+}
+body {
+	margin: 0;
+	padding:0;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	line-height: 1.5em;
+	color: #fff;
+	background: url(images/fundo.jpg) repeat-x  center top;
+	width: 100%;
+	display: table;
+}
+
+a:link, a:visited { color: #008800; text-decoration: none; } 
+a:active, a:hover { color: #CC0000; text-decoration: none }
+
+h1 {
+	font-size: 18px;
+	font-weight: bold;
+	color: #86c111;
+	background: url('images/templatemo_h1.jpg') no-repeat left 50%;
+	height: 26px;
+	padding-left: 38px;
+	padding-top: 20px;
+	
+}
+h2 {
+	margin-top: 20px;
+	padding-left: 10px;
+	padding-top: 5px;
+	font-size: 14px;
+	font-weight: bold;
+	color: #fff;
+	height: 20px;
+	
+}
+
+#templatemo_container {
+	width: 900px;
+	margin: auto;
+    height: 830px;
+}
+#templatemo_topsection {
+	float: left;
+	width: 900px;
+	height: 108px;
+
+}
+#templatemo_topsection_title {
+	float: left;
+	width: 143px;
+	font-size: 30px;
+	font-weight: bold;
+	margin-top: 20px;
+	height: 100px;
+	padding-top: 0px;
+	padding-left: 23px;
+    font-family:"Century Gothic", "HelveticaNeueLT Pro 45 Lt", sans-serif;
+}
+#templatemo_topsection_title img {
+	float: left;
+}
+.templatemo_topmenu{
+	float: right;
+	margin-top: 30px;
+}
+
+.templatemo_topmenu ul {
+	list-style: none;
+	padding: 0px;
+	margin: 0px;
+}
+
+.templatemo_topmenu li{
+	display: inline;
+}
+
+.templatemo_topmenu li a{
+	float: left;
+	font-size: 11px;
+	font-weight: bold;
+	text-decoration: none;
+	text-align: center;
+	color: #fff;
+	width: 80px;
+	height: 24px;
+	margin-left: 10px;
+	padding-top: 3px;
+	background: url(images/templatemo_top_button.png) no-repeat;
+}
+
+
+
+.templatemo_topmenu li a:hover, .templatemo_topmenu li .current{
+	color: #fff;
+	background: url(images/templatemo_top_current.png) no-repeat;
+}
+
+#templatemo_left_column {
+	float: left;
+	width: 323px;
+    height: 802px;
+}
+#templatemo_left_top {
+	float: left;
+	width: 323px;
+	height: 219px;
+    padding-left:70px;
+}
+.templatemo_leftmenu {
+	float: left;
+	width: 260px;
+	margin-top: 0px;
+}
+.templatemo_leftmenu ul {
+	list-style-type: none;
+	padding-left: 70px;
+	margin:10px;
+}
+.templatemo_leftmenu li a {
+	display: block;
+	height: 20px;
+	font-size: 11px;
+	color: #3c4826;
+	background: url(images/templatemo_menu_button.gif);
+}
+.templatemo_leftmenu li a:hover, .templatemo_leftmenu li .current {
+	color: #000;
+}
+#templatemo_right_column { /*fundo branco*/
+	float: right;
+	width: 577px;
+	background: url(images/templatemo_right_bg.png) repeat-y;
+    height: 700px;
+}
+#templatemo_right_top {
+	float: left;
+	margin:auto;
+	width: 577px;
+	height: 170px;
+	background: url(images/patrulhamento.png) no-repeat;
+}
+#templatemo_right_mid {
+	float: left;
+	width: 446px;
+	margin: 0px auto;
+	background: #fff;
+	color: #666666;
+	padding: 0px 45px 0px 45px;
+	text-align: justify;
+    height: 529px;
+}
+#templatemo_right_mid img {
+	float: right;
+	padding-left: 10px;
+}
+
+#templatemo_right_bot {
+float: left;
+	margin-top: 0px;
+	padding-top: 50px;
+	width: 561px;
+	height: 0px;
+	color: #333333;
+	text-align: center;
+	font-weight: bold;
+	
+}
+
+.button {
+	font-family: Tahoma, "Arial Black";
+	float: left;
+	width: 184px;
+	padding: 10px 0px 0px 50px;
+	margin: 1px 0px 0px 0px;
+	font-size: 12px;
+	font-weight: bold;
+	color: #fff;
+	height: 29px;
+	background: url(images/templatemo_h3.png) no-repeat;
+    
+    
+   
+}
+
+.button_last {
+	font-family: Tahoma, "Arial Black";
+	float: left;
+	width: 165px;
+	padding: 10px 0px 0px 50px;
+	margin: 1px 0px 30px 0px;
+	font-size: 12px;
+	font-weight: bold;
+	color: #fff;
+	height: 30px;
+	background: url(images/templatemo_h3.png) no-repeat;
+    
+    
+   
+}
+ul {
+list-style-type: none;
+    height: 437px;
+}
+ 
+.check {
+	float: left;
+	width: 323px;
+	text-align: center;
+}
+
+.icones {
+    vertical-align: middle;
+   float:none; 
+    margin-left:0px;
+     margin-right:auto;
+     
+}
+.espacamento {
+    line-height: 150%;
+    margin:3px;
+    color:#000000;
+    
+}
+
+.textbox {
+font-size: 12px;
+}
+
+.titulo_label {
+    font-size:13px;
+    font-weight:bold;
+    color:#000000;
+}
+
+.radio {
+// font-size:12px;
+color:#000000;
+}
+
+.botao {
+    float:right;
+}
