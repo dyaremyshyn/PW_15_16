@@ -36,7 +36,7 @@ public class BDRegisto
         cmd.Parameters.AddWithValue("@id", id);
         cmd.Parameters.AddWithValue("@ft", b);
         cmd.Parameters.AddWithValue("@data", Convert.ToDateTime(dataNascimento));
-       
+
         cn.Open();
         cmd.ExecuteNonQuery();
         cmd.Dispose();
@@ -95,11 +95,12 @@ public class BDRegisto
       //  "INSERT INTO PESSOA (NOME,NCIDADAO,NCONTRIBUINTE,MORADA,COD_POSTAL,LOCALIDADE,NTELEFONE,IDRegistado, FOTO,DATANASCIMENTO) VALUES(@nome,@cid,@nif,@mor,@cd,@loc,@tel,@id,@ft,@data)";
         string sql = "Insert into HORARIO (DISTINTIVO,DATA_FIM_P,HORAENTRADA,HORASAIDA) VALUES(@DIS,@DATA,@HORA,@HORAS)";
         SqlCommand cmd = new SqlCommand(sql, cn);
-        cmd.Parameters.AddWithValue("@DIS", dis);
-        cmd.Parameters.AddWithValue("@DATA", Convert.ToInt32(data));
-        cmd.Parameters.AddWithValue("@HORA", Convert.ToInt32(he));
+        cmd.Parameters.AddWithValue("@DIS", Convert.ToDecimal(dis));
+        cmd.Parameters.AddWithValue("@DATA", data);
+        cmd.Parameters.AddWithValue("@HORA",he);
         cmd.Parameters.AddWithValue("@HORAS", hs);
-       
+               
+
         cn.Open();
         cmd.ExecuteNonQuery();
         cmd.Dispose();

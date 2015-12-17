@@ -94,6 +94,7 @@ public partial class Comandante_Horarios : System.Web.UI.Page
     }
     protected void GravarHorario_Click(object sender, EventArgs e)
     {
+        BDRegisto bd = new BDRegisto();
         if (Data.SelectedDate > DateTime.Today)
         {
            if (infoa.Text == "Agente Fora de Serviço")
@@ -101,10 +102,11 @@ public partial class Comandante_Horarios : System.Web.UI.Page
                 DateTime dia = Data.SelectedDate;
                 
                 DateTime hora = DateTime.ParseExact(HoraE.SelectedItem.Text+":00","HH:mm:ss",null);
-                DateTime horas = DateTime.ParseExact(HoraE.SelectedItem.Text+ ":00", "HH:mm:ss", null);
+               // DateTime horas = DateTime.ParseExact(HoraS.SelectedItem.Text+":00", "HH:mm:ss", null);
                 hora = new DateTime(dia.Year, dia.Month, dia.Day, hora.Hour, hora.Minute, 0);
-                
-                infoa.Text = hora.Year.ToString() + hora.Month.ToString() + hora.Day.ToString() + hora.Hour +hora.Minute;
+             //   horas = new DateTime(dia.Year, dia.Month, dia.Day, horas.Hour, horas.Minute, 0);
+              //  bd.insertHora(Agente.SelectedValue, dia, hora, horas);
+               
            }
             else
             {
