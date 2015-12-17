@@ -15,7 +15,7 @@
     <asp:Label ID="infoa" runat="server" Text="Label"></asp:Label>
     <p></p>
     <asp:Label ID="Label2" runat="server" Text="Data:"></asp:Label>
-    <asp:Calendar ID="Data" Visible="false" SelectionMode="Day" runat="server"></asp:Calendar>
+    <asp:Calendar ID="Data" AutoPostBack="true" Visible="false" SelectionMode="Day" runat="server"></asp:Calendar>
     <p></p>
      <asp:Label ID="Label3" runat="server" Visible="false" Text="Hora de Entrada"></asp:Label>
     <asp:DropDownList Visible="false" ID="HoraE" AutoPostBack="true" runat="server">    

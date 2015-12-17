@@ -99,8 +99,12 @@ public partial class Comandante_Horarios : System.Web.UI.Page
            if (infoa.Text == "Agente Fora de Serviço")
            {
                 DateTime dia = Data.SelectedDate;
+                
                 DateTime hora = DateTime.ParseExact(HoraE.SelectedItem.Text+":00","HH:mm:ss",null);
-                infoa.Text = hora.Hour.ToString();
+                DateTime horas = DateTime.ParseExact(HoraE.SelectedItem.Text+ ":00", "HH:mm:ss", null);
+                hora = new DateTime(dia.Year, dia.Month, dia.Day, hora.Hour, hora.Minute, 0);
+                
+                infoa.Text = hora.Year.ToString() + hora.Month.ToString() + hora.Day.ToString() + hora.Hour +hora.Minute;
            }
             else
             {
