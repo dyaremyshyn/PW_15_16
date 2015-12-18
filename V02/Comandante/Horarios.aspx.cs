@@ -30,7 +30,7 @@ public partial class Comandante_Horarios : System.Web.UI.Page
             HoraE.DataBind();
            
             HoraE.Items.Insert(0, it);
-
+            HoraS.Items.Insert(0, it);
 
         }
         else
@@ -46,9 +46,9 @@ public partial class Comandante_Horarios : System.Web.UI.Page
 
                 
 
-                if (HoraE.SelectedIndex != 0)
+                if ((HoraE.SelectedIndex != 0  && HoraS.SelectedIndex ==0) || HoraS.SelectedIndex < HoraE.SelectedIndex)
                 {
-
+                   
                     int i = Convert.ToInt32(HoraE.SelectedValue);
                     HoraS.DataSource = bd.getHorasSaida(i);
                     HoraS.DataTextField = "HORA";
@@ -56,6 +56,8 @@ public partial class Comandante_Horarios : System.Web.UI.Page
                     HoraS.DataTextFormatString = "{0:HH:mm}";
                     HoraS.DataBind();
                     HoraS.Items.Insert(0, it);
+
+                   
                 }
 
             }
@@ -91,6 +93,11 @@ public partial class Comandante_Horarios : System.Web.UI.Page
         HoraS.Visible = false;
         GravarHorario.Visible = false;
         CancelarHorario.Visible = false;
+        HoraS.Items.Clear();
+        ListItem it = new ListItem("Selecione");
+        HoraS.Items.Insert(0, it);
+        HoraE.SelectedIndex = 0;
+
     }
     protected void GravarHorario_Click(object sender, EventArgs e)
     {
@@ -100,12 +107,11 @@ public partial class Comandante_Horarios : System.Web.UI.Page
            if (infoa.Text == "Agente Fora de Serviço")
            {
                 DateTime dia = Data.SelectedDate;
-                
                 DateTime hora = DateTime.ParseExact(HoraE.SelectedItem.Text+":00","HH:mm:ss",null);
-               // DateTime horas = DateTime.ParseExact(HoraS.SelectedItem.Text+":00", "HH:mm:ss", null);
+                DateTime horas = DateTime.ParseExact(HoraS.SelectedItem.Text+":00", "HH:mm:ss", null);
                 hora = new DateTime(dia.Year, dia.Month, dia.Day, hora.Hour, hora.Minute, 0);
-             //   horas = new DateTime(dia.Year, dia.Month, dia.Day, horas.Hour, horas.Minute, 0);
-              //  bd.insertHora(Agente.SelectedValue, dia, hora, horas);
+                horas = new DateTime(dia.Year, dia.Month, dia.Day, horas.Hour, horas.Minute, 0);
+                bd.insertHora(Agente.SelectedValue, dia, hora, horas);
                
            }
             else
