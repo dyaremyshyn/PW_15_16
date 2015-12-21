@@ -46,17 +46,17 @@
                 <asp:ImageButton ID="ImageButton2" ImageUrl="~/images/GNR.png" runat="server" PostBackUrl="~/Comandante/Inicio.aspx" />
             </div>
             <ul><li class="button"><a href="Horarios.aspx">Horarios</a></li>
-                <li class="button"><a href ="Registar_animal.aspx">Patrulhas</a></li>
-                <li class="button"><a href="urgencia_cliente.aspx">Operações</a></li>
-                <li class="button"><a href="marcar_consulta_cliente.aspx">Formações</a></li>
-                <li class="button"><a href="vacinaçao_cliente.aspx">Treinos Tácticos</a></li>
-                <li class="button"><a href="Microchip_Cliente.aspx">Consultar Agente</a></li>
-                <li class="button"><a href="TratamentoFeridasCliente.aspx">Consultar Cidadão</a></li>
-                <li class="button"><a href="ReproduçãoAssistidaCliente.aspx">Postar Informação</a></li>
-                <li class="button"><a href="AnalisesClinicasCliente.aspx">Pedidos</a></li>
-                <li class="button"><a href="futurasConsultas.aspx">Queixas</a></li>
-                <li class="button"><a href="futurasConsultas.aspx">Processos</a></li>
-                <li class="button"><a href="futurasConsultas.aspx">Depoimentos Recebidos</a></li>
+                <li class="button"><a href ="Patrulhas.aspx">Patrulhas</a></li>
+                <li class="button"><a href="Operacoes.aspx">Operações</a></li>
+                <li class="button"><a href="Formacoes.aspx">Formações</a></li>
+                <li class="button"><a href="Treinos.aspx">Treinos Tácticos</a></li>
+                <li class="button"><a href="Agentes.aspx">Consultar Agente</a></li>
+                <li class="button"><a href="Cidadoes.aspx">Consultar Cidadão</a></li>
+                <li class="button"><a href="Informacoes.aspx">Postar Informação</a></li>
+                <li class="button"><a href="Pedidos.aspx">Pedidos</a></li>
+                <li class="button"><a href="Queixas.aspx">Queixas</a></li>
+                <li class="button"><a href="Processos.aspx">Processos</a></li>
+                <li class="button"><a href="DepoimentosRecebidos.aspx">Depoimentos Recebidos</a></li>
                 <li class="button_last"><a href="AdicionarAgente.aspx">Adicionar o Agente</a></li>
                 </ul>
                 
