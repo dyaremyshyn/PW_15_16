@@ -37,6 +37,7 @@ public partial class Comandante_Horarios : System.Web.UI.Page
         {
             if (Agente.SelectedIndex != 0)
             {
+                infoa.Text = "";
                 FotoAgente.Visible = true;
                 string dist = Agente.SelectedValue.ToString();
                 FotoAgente.ImageUrl = bd.carregaFotoAgente(dist);
@@ -55,7 +56,7 @@ public partial class Comandante_Horarios : System.Web.UI.Page
                     HoraS.DataValueField = "Id";
                     HoraS.DataTextFormatString = "{0:HH:mm}";
                     HoraS.DataBind();
-                    HoraS.Items.Insert(0, it);
+                    //HoraS.Items.Insert(0, it);
 
                    
                 }
@@ -116,7 +117,12 @@ public partial class Comandante_Horarios : System.Web.UI.Page
            }
             else
             {
-
+                DateTime dia = Data.SelectedDate;
+                DateTime hora = DateTime.ParseExact(HoraE.SelectedItem.Text + ":00", "HH:mm:ss", null);
+                DateTime horas = DateTime.ParseExact(HoraS.SelectedItem.Text + ":00", "HH:mm:ss", null);
+                hora = new DateTime(dia.Year, dia.Month, dia.Day, hora.Hour, hora.Minute, 0);
+                horas = new DateTime(dia.Year, dia.Month, dia.Day, horas.Hour, horas.Minute, 0);
+                bd.updateHoraTrabalho(Agente.SelectedValue, dia, hora, horas);
             }
         }
     }

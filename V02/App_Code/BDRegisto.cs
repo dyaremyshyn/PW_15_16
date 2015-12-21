@@ -107,6 +107,25 @@ public class BDRegisto
         cn.Close();
     }
 
+    public void updateHoraTrabalho(string dis, DateTime data, DateTime he, DateTime hs)
+    {
+
+        this.cn.ConnectionString = this.connectionString;
+        //  "INSERT INTO PESSOA (NOME,NCIDADAO,NCONTRIBUINTE,MORADA,COD_POSTAL,LOCALIDADE,NTELEFONE,IDRegistado, FOTO,DATANASCIMENTO) VALUES(@nome,@cid,@nif,@mor,@cd,@loc,@tel,@id,@ft,@data)";
+        string sql = "UPDATE HORARIO SET HORAENTRADA = @HORA,HORASAIDA = @HORAS WHERE DISTINTIVO = @DIS AND DATA_FIM_P = @DATA";
+        SqlCommand cmd = new SqlCommand(sql, cn);
+        cmd.Parameters.AddWithValue("@DIS", Convert.ToDecimal(dis));
+        cmd.Parameters.AddWithValue("@DATA", data);
+        cmd.Parameters.AddWithValue("@HORA", he);
+        cmd.Parameters.AddWithValue("@HORAS", hs);
+
+
+        cn.Open();
+        cmd.ExecuteNonQuery();
+        cmd.Dispose();
+        cn.Close();
+    }
+
 
     public DataTable getHorasSaida(int i)
     {
@@ -158,18 +177,18 @@ public class BDRegisto
             info = "Agente Fora de Serviço";
         else
         {
-            sql="Select HORAENTRADA, HORASAIDAFROM HORARIO H, AGENTE A WHERE H.DISTINTIVO = A.DISTINTIVO AND DATA_FIM_P=@data and A.DISTINTIVO='"+dis+"'";
+            sql="Select HORAENTRADA, HORASAIDA FROM HORARIO H, AGENTE A WHERE H.DISTINTIVO = A.DISTINTIVO AND DATA_FIM_P=@data and A.DISTINTIVO='"+dis+"'";
             cmd = new SqlCommand(sql, cn);
             cmd.Parameters.AddWithValue("@data", a);
             DataTable dados = new DataTable();
             cn.Open();
-            SqlDataReader dr = cmd.ExecuteReader();
-            while (dr.Read())
-            {
-                dados.Load(dr);
-            }
+            dados.Load(cmd.ExecuteReader());
 
             cn.Close();
+            DateTime entrada, saida;
+            entrada = (DateTime)dados.Rows[0]["HORAENTRADA"];
+            saida = (DateTime)dados.Rows[0]["HORASAIDA"];
+            info = "Agente de Serviço das " + entrada.Hour.ToString() + "h" + entrada.Minute.ToString() + "m ate as " + saida.Hour.ToString() + "h" + saida.Minute.ToString() + "m";
         }
 
         return info;
