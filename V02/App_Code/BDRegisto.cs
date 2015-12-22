@@ -107,6 +107,96 @@ public class BDRegisto
         cn.Close();
     }
 
+    public void inserAgenteOperacao(string destintivo, int codope)
+    {
+        this.cn.ConnectionString = this.connectionString;
+        string sql = "Insert INTO REALIZADAPOR (DISTINTIVO,CODOPERACAO) VALUES(@AGENTE,@OPERACAO)";
+        SqlCommand cmd = new SqlCommand(sql, cn);
+        cmd.Parameters.AddWithValue("@AGENTE", Convert.ToDecimal(destintivo));
+        cmd.Parameters.AddWithValue("@OPERACAO", codope);
+        cn.Open();
+        cmd.ExecuteNonQuery();
+        cmd.Dispose();
+        cn.Close();
+    }
+
+    public void inserViaturaOperacao(string codviatura, int opercao)
+    {
+        this.cn.ConnectionString = this.connectionString;
+        string sql = "Insert INTO VICULOOPE (COD_VEICULO,CODOPERACAO) VALUES(@V,@O)";
+        SqlCommand cmd = new SqlCommand(sql, cn);
+        cmd.Parameters.AddWithValue("@V", Convert.ToInt32(codviatura));
+        cmd.Parameters.AddWithValue("@O", opercao);
+
+        cn.Open();
+        cmd.ExecuteNonQuery();
+        cn.Close();
+    }
+
+    public int insertPatrulha(string res,string desc, DateTime data, DateTime hora, string local)
+    {
+        string nome = "Patrulha no local: " + local;
+        string tipo = "PATRULHAMENTO";
+        
+        this.cn.ConnectionString = this.connectionString;
+        string sql = "Insert INTO OPERACOES (AGE_RESPONS,NOMEOPERACAO,TIPOOPERACAO,DESCRICAOOPERACAO,DATAOPERA,HORAINICIOOPE,LOCAL) VALUES(@RES,@NOME,@TIPO,@DIS,@DATA,@HORA,@LOCAL); SELECT CAST(scope_identity() AS int);";
+        SqlCommand cmd = new SqlCommand(sql, cn);
+        cmd.Parameters.AddWithValue("@RES", Convert.ToDecimal(res));
+        cmd.Parameters.AddWithValue("@NOME", nome);
+        cmd.Parameters.AddWithValue("@TIPO", tipo);
+        cmd.Parameters.AddWithValue("@DIS", desc);
+        cmd.Parameters.AddWithValue("@DATA", data);
+        cmd.Parameters.AddWithValue("@HORA", hora);
+        cmd.Parameters.AddWithValue("@LOCAL", local);
+
+
+
+
+        cn.Open();
+        int idOperacao = (int)cmd.ExecuteScalar();
+        //cmd.ExecuteNonQuery();
+        cmd.Dispose();
+        cn.Close();
+        return idOperacao;
+    }
+
+    public DataTable getViaturaLivre()
+    {
+        DataTable datatable = new DataTable();
+        
+      //  string sql = "SELECT MARCA, MODELO, MATRICULO FROM VEICULOS V, VICULOOPE VI, OPERACOES O WHERE V.COD_VEICULO=VI.COD_VEICULO AND VI.CODOPERACAO <>O.CODOPERACAO AND O.HORAINICIOOPE"
+        string sql = "SELECT COD_VEICULO, MARCA, MODELO, MATRICULO FROM VEICULOS";
+        this.cn.ConnectionString = this.connectionString;
+        SqlCommand cmd = new SqlCommand(sql, cn);
+        SqlDataAdapter da = new SqlDataAdapter();
+        cmd.CommandType = CommandType.Text;
+        cmd.Connection = cn;
+        da.SelectCommand = cmd;
+        da.Fill(datatable);
+        return datatable;
+    }
+
+    public DataTable getAgentesDisponiveis(DateTime DATA, DateTime HORAE)
+    {
+        DataTable data = new DataTable();
+       // string sql = "Select NOME, A.DISTINTIVO FROM AGENTE A, PESSOA P, OPERACOES O,REALIZADAPOR R  WHERE P.ID=A.ID AND O.CODOPERACAO=R.CODOPERACAO AND R.DISTINTIVO<>A.DISTINTIVO AND DATAOPERA=@data";
+       // string sql = "Select NOME, DISTINTIVO FROM AGENTE A, PESSOA P WHERE P.ID = A.ID";
+       // string sql = "Select NOME, A.DISTINTIVO FROM AGENTE A, PESSOA P, HORARIO H,OPERACOES O,REALIZADAPOR R WHERE P.ID = A.ID AND H.DISTINTIVO = A.DISTINTIVO AND O.CODOPERACAO=R.CODOPERACAO AND  R.DISTINTIVO<>A.DISTINTIVO AND DATAOPERA=@data  AND DATA_FIM_P=@data AND HORAENTRADA<@h";
+        string sql = "Select NOME, A.DISTINTIVO FROM AGENTE A, PESSOA P, HORARIO H WHERE P.ID = A.ID AND H.DISTINTIVO = A.DISTINTIVO AND DATA_FIM_P=@data AND HORAENTRADA<=@h";
+        this.cn.ConnectionString = this.connectionString;
+        SqlCommand cmd = new SqlCommand(sql, cn);
+        cmd.Parameters.AddWithValue("@data", DATA);
+        cmd.Parameters.AddWithValue("@h", HORAE);
+        DataTable dados = new DataTable();
+        cn.Open();
+        data.Load(cmd.ExecuteReader());
+        cn.Close();
+        return data;
+    
+    }
+
+    
+
     public void updateHoraTrabalho(string dis, DateTime data, DateTime he, DateTime hs)
     {
 
