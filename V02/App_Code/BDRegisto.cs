@@ -195,7 +195,79 @@ public class BDRegisto
     
     }
 
-    
+
+    public DataTable getPatrulha(string codPatrulha)
+    {
+        DataTable data = new DataTable();
+        DateTime d = DateTime.Today;
+        string sql = "Select CODOPERACAO, NOME, HORAINICIOOPE,LOCAL From Operacoes O, AGENTE A, PESSOA P Where O.AGE_RESPONS=A.DISTINTIVO AND A.ID = P.ID  AND CODOPERACAO=@cod";
+        this.cn.ConnectionString = this.connectionString;
+        SqlCommand cmd = new SqlCommand(sql, cn);
+        cmd.Parameters.AddWithValue("@cod", Convert.ToInt32(codPatrulha));
+        cn.Open();
+        data.Load(cmd.ExecuteReader());
+        cn.Close();
+        return data;
+    }
+
+
+
+    public DataTable getViatura(string cod)
+    {
+        DataTable data = new DataTable();
+        DateTime d = DateTime.Today;
+        string sql = "Select * From VEICULOS Where COD_VEICULO=@cod";
+        this.cn.ConnectionString = this.connectionString;
+        SqlCommand cmd = new SqlCommand(sql, cn);
+        cmd.Parameters.AddWithValue("@cod", Convert.ToInt32(cod));
+        cn.Open();
+        data.Load(cmd.ExecuteReader());
+        cn.Close();
+        return data;
+    }
+
+    public DataTable getViaturasNaOperacao(string codPatrulha)
+    {
+        DataTable data = new DataTable();
+        DateTime d = DateTime.Today;
+        string sql = "Select V.MATRICULO, V.COD_VEICULO From VEICULOS V, VICULOOPE VI, OPERACOES O Where V.COD_VEICULO=VI.COD_VEICULO AND VI.CODOPERACAO=O.CODOPERACAO  AND O.CODOPERACAO=@cod";
+        this.cn.ConnectionString = this.connectionString;
+        SqlCommand cmd = new SqlCommand(sql, cn);
+        cmd.Parameters.AddWithValue("@cod", Convert.ToInt32(codPatrulha));
+        cn.Open();
+        data.Load(cmd.ExecuteReader());
+        cn.Close();
+        return data;
+    }
+
+    public DataTable getAgentesPatrulha(string codPatrulha)
+    {
+        DataTable data = new DataTable();
+        DateTime d = DateTime.Today;
+        string sql = "Select NOME, FOTO From Operacoes O, REALIZADAPOR R, AGENTE A, PESSOA P Where O.AGE_RESPONS=A.DISTINTIVO AND R.CODOPERACAO=O.CODOPERACAO AND R.DISTINTIVO=A.DISTINTIVO AND A.ID = P.ID  AND O.CODOPERACAO=@cod";
+        this.cn.ConnectionString = this.connectionString;
+        SqlCommand cmd = new SqlCommand(sql, cn);
+        cmd.Parameters.AddWithValue("@cod", Convert.ToInt32(codPatrulha));
+        cn.Open();
+        data.Load(cmd.ExecuteReader());
+        cn.Close();
+        return data;
+    }
+
+    public DataTable getPatrulhas()
+    {
+        DataTable data = new DataTable();
+        DateTime d = DateTime.Today;
+        string sql = "Select CODOPERACAO, AGE_RESPONS, HORAINICIOOPE,LOCAL From Operacoes Where TIPOOPERACAO like 'PATRULHAMENTO' AND DATAOPERA>=@data  ";
+        this.cn.ConnectionString = this.connectionString;
+        SqlCommand cmd = new SqlCommand(sql, cn);
+        cmd.Parameters.AddWithValue("@data", d);
+        cn.Open();
+        data.Load(cmd.ExecuteReader());
+        cn.Close();
+        return data;
+        
+    }
 
     public void updateHoraTrabalho(string dis, DateTime data, DateTime he, DateTime hs)
     {

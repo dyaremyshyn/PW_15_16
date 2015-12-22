@@ -6,10 +6,13 @@
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder4" Runat="Server">
     <asp:Label ID="Label1" runat="server" Text="Patrulhas Agendadas:"></asp:Label>
-    <asp:DropDownList ID="PatrulhasAgendadas" runat="server"></asp:DropDownList>
+    <asp:DropDownList ID="PatrulhasAgendadas" AutoPostBack="true" runat="server"></asp:DropDownList>
     <p></p>
-    <asp:GridView ID="GridView1" runat="server"></asp:GridView>
-    
+    <asp:GridView ID="GridView1" Width="50" runat="server"></asp:GridView>
+    <asp:DropDownList ID="AgentesPa" AutoPostBack="true" Visible="false" runat="server"></asp:DropDownList>
+    <asp:DropDownList ID="ViaturasPa" AutoPostBack="true" Visible="false" runat="server"></asp:DropDownList><p></p>
+    <asp:GridView ID="Viaturas" Visible="false" runat="server"></asp:GridView>
+    <asp:Label ID="NovaP" runat="server" ForeColor="GreenYellow" Text="Nova Patrulha Marcada Com Sucesso"></asp:Label>
     <asp:Label ID="DataPatrulhaLabel"  Visible="false" runat="server" Text="Data:"></asp:Label>
     <asp:Calendar ID="Calendar1" Width="50px" Height="50" AutoPostBack="true" Visible="false" runat="server"></asp:Calendar>
 

@@ -15,6 +15,15 @@ public partial class Comandante_Patrulhas : System.Web.UI.Page
         BDRegisto bd = new BDRegisto();
         if (!IsPostBack)
         {
+            aux = new ListItem("Selecione");
+            PatrulhasAgendadas.DataSource = bd.getPatrulhas();
+            PatrulhasAgendadas.DataTextField = "HORAINICIOOPE";
+            PatrulhasAgendadas.DataValueField = "CODOPERACAO";
+           // PatrulhasAgendadas.DataTextFormatString = "{0:HH:mm}";
+            PatrulhasAgendadas.DataBind();
+            PatrulhasAgendadas.Items.Insert(0, aux);
+            NovaP.Visible = false;
+
             
             Calendar1.SelectedDate = DateTime.Today;
             HoraDD.DataSource = bd.getHorasEntrada();
@@ -25,6 +34,35 @@ public partial class Comandante_Patrulhas : System.Web.UI.Page
             time = Calendar1.SelectedDate;
         }
 
+        GridView1.Visible = false;
+        AgentesPa.Visible = false;
+        ViaturasPa.Visible = false;
+        NovaP.Visible = false;
+        Viaturas.Visible = false;
+        if (PatrulhasAgendadas.SelectedIndex != 0)
+        {
+            aux = new ListItem("Agentes Na Operação");
+            GridView1.Visible = true;
+            GridView1.DataSource = bd.getPatrulha(PatrulhasAgendadas.SelectedValue);
+            GridView1.DataBind();
+            AgentesPa.Visible = true;
+            AgentesPa.DataSource = bd.getAgentesPatrulha(PatrulhasAgendadas.SelectedValue);
+            AgentesPa.DataTextField = "NOME";
+            AgentesPa.DataValueField = "FOTO";
+            AgentesPa.DataBind();
+            AgentesPa.Items.Insert(0, aux);
+
+            aux = new ListItem("Veiculos Na Operação");
+            ViaturasPa.DataSource = bd.getViaturasNaOperacao(PatrulhasAgendadas.SelectedValue);
+            ViaturasPa.DataTextField = "MATRICULO";
+            ViaturasPa.DataValueField = "COD_VEICULO";
+            ViaturasPa.DataBind();
+            ViaturasPa.Items.Insert(0, aux);
+            ViaturasPa.Visible = true;
+            AgentesPa.Visible = true;
+
+            
+        }
         if (time != Calendar1.SelectedDate)
         {
             count = 0;
@@ -100,7 +138,10 @@ public partial class Comandante_Patrulhas : System.Web.UI.Page
         Local.Visible = true;
         Responsavel.Visible = true;
         Label5.Visible = true;
-
+        GridView1.Visible = false;
+        PatrulhasAgendadas.Visible = false;
+        ViaturasPa.Visible = false;
+        AgentesPa.Visible = false;
     }
     protected void Cancelar_Click(object sender, EventArgs e)
     {
@@ -123,6 +164,13 @@ public partial class Comandante_Patrulhas : System.Web.UI.Page
         Local.Visible = false;
         Responsavel.Visible = false;
         Label5.Visible = false;
+        PatrulhasAgendadas.SelectedIndex = 0;
+        PatrulhasAgendadas.Visible = true;
+        GridView1.Visible = false;
+        AgentesPa.Visible = false;
+        ViaturasPa.Visible = false;
+        ViaturasPa.Visible = false;
+        AgentesPa.Visible = false;
     }
     protected void Submit_Click(object sender, EventArgs e)
     {
@@ -171,5 +219,14 @@ public partial class Comandante_Patrulhas : System.Web.UI.Page
         Local.Visible = false;
         Responsavel.Visible = false;
         Label5.Visible = false;
+        GridView1.Visible = false;
+        PatrulhasAgendadas.SelectedIndex = 0;
+        PatrulhasAgendadas.Visible = true;
+        AgentesPa.Visible = false;
+        ViaturasPa.Visible = false;
+        NovaP.Visible = true;
+        ViaturasPa.Visible = false;
+        AgentesPa.Visible = false;
+        
     }
 }
