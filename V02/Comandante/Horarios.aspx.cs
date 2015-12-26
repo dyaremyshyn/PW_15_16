@@ -47,7 +47,7 @@ public partial class Comandante_Horarios : System.Web.UI.Page
 
                 
 
-                if ((HoraE.SelectedIndex != 0  && HoraS.SelectedIndex ==0) || HoraS.SelectedIndex < HoraE.SelectedIndex)
+                if ((HoraE.SelectedIndex != 0  && HoraS.SelectedIndex ==0))
                 {
                    
                     int i = Convert.ToInt32(HoraE.SelectedValue);
@@ -56,7 +56,8 @@ public partial class Comandante_Horarios : System.Web.UI.Page
                     HoraS.DataValueField = "Id";
                     HoraS.DataTextFormatString = "{0:HH:mm}";
                     HoraS.DataBind();
-                    //HoraS.Items.Insert(0, it);
+                    //
+                    HoraS.Items.Insert(0, it);
 
                    
                 }
@@ -113,7 +114,8 @@ public partial class Comandante_Horarios : System.Web.UI.Page
                 hora = new DateTime(dia.Year, dia.Month, dia.Day, hora.Hour, hora.Minute, 0);
                 horas = new DateTime(dia.Year, dia.Month, dia.Day, horas.Hour, horas.Minute, 0);
                 bd.insertHora(Agente.SelectedValue, dia, hora, horas);
-               
+                HoraE.SelectedIndex = 0;
+                HoraS.SelectedIndex = 0;
            }
             else
             {
@@ -123,6 +125,8 @@ public partial class Comandante_Horarios : System.Web.UI.Page
                 hora = new DateTime(dia.Year, dia.Month, dia.Day, hora.Hour, hora.Minute, 0);
                 horas = new DateTime(dia.Year, dia.Month, dia.Day, horas.Hour, horas.Minute, 0);
                 bd.updateHoraTrabalho(Agente.SelectedValue, dia, hora, horas);
+                HoraE.SelectedIndex = 0;
+                HoraS.SelectedIndex = 0;
             }
         }
     }

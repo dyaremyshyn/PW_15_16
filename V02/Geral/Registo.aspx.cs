@@ -32,11 +32,12 @@ public partial class Geral_Registo : System.Web.UI.Page
             TextBox dataN = (TextBox)CreateUserWizard1.CreateUserStep.ContentTemplateContainer.FindControl("data");
             TextBox telefone = (TextBox)CreateUserWizard1.CreateUserStep.ContentTemplateContainer.FindControl("Contato_t_cliente");
             FileUpload img = (FileUpload)CreateUserWizard1.CreateUserStep.ContentTemplateContainer.FindControl("Imagem");
+            RadioButtonList rd = (RadioButtonList)CreateUserWizard1.CreateUserStep.ContentTemplateContainer.FindControl("SEXO");
             Roles.AddUserToRole(nome, "Cidadao");
             idRegistado = Membership.GetUser(nome).ProviderUserKey.ToString();
             Stream fs = img.PostedFile.InputStream;
             Byte[] bytes = bd.carregaImagem(fs);
-            bd.criaDono(Nome.Text, ncidadao.Text, contribuinte.Text, Moradac.Text, codP.Text, loc.Text, dataN.Text, telefone.Text,idRegistado,bytes);
+            bd.criaDono(Nome.Text, ncidadao.Text, contribuinte.Text, Moradac.Text, codP.Text, loc.Text, dataN.Text, telefone.Text,idRegistado,bytes,rd.SelectedValue);
            
         }
 

@@ -20,7 +20,7 @@
     <asp:DropDownList ID="HoraDD" AutoPostBack="true"  Visible="false" runat="server"></asp:DropDownList>
     
     <asp:Label ID="AgentesLabel" Visible="false" runat="server" Text="Agentes:"></asp:Label>
-    <asp:CheckBoxList ID="AgentesRB" AutoPostBack="true" RepeatColumns="5" runat="server"></asp:CheckBoxList>
+    <asp:CheckBoxList ID="AgentesRB" Visible="false" AutoPostBack="true" RepeatColumns="5" runat="server"></asp:CheckBoxList>
     <p></p>
       <asp:Label ID="LabelViaturas" Visible="false" runat="server" Text="Viaturas:"></asp:Label>
     <asp:CheckBoxList ID="ViaturasRB" Visible="false" RepeatColumns="5"  runat="server"></asp:CheckBoxList>

@@ -22,9 +22,9 @@ public class BDRegisto
 	}
 
 
-    public void criaDono(string nome, string ncidadao, string ncontribuinte, string morada,string codPostal,string localidade, string dataNascimento,string contato, string id, byte[]b){
+    public void criaDono(string nome, string ncidadao, string ncontribuinte, string morada,string codPostal,string localidade, string dataNascimento,string contato, string id, byte[]b,string s){
         this.cn.ConnectionString = this.connectionString;
-        string StrInsert = "INSERT INTO PESSOA (NOME,NCIDADAO,NCONTRIBUINTE,MORADA,COD_POSTAL,LOCALIDADE,NTELEFONE,IDRegistado, FOTO,DATANASCIMENTO) VALUES(@nome,@cid,@nif,@mor,@cd,@loc,@tel,@id,@ft,@data)";
+        string StrInsert = "INSERT INTO PESSOA (NOME,NCIDADAO,NCONTRIBUINTE,MORADA,COD_POSTAL,LOCALIDADE,NTELEFONE,IDRegistado, FOTO,DATANASCIMENTO,SEXO) VALUES(@nome,@cid,@nif,@mor,@cd,@loc,@tel,@id,@ft,@data,@sex)";
         SqlCommand cmd = new SqlCommand(StrInsert, cn);
         cmd.Parameters.AddWithValue("@nome", nome);
         cmd.Parameters.AddWithValue("@cid", Convert.ToInt32(ncidadao));
@@ -36,6 +36,7 @@ public class BDRegisto
         cmd.Parameters.AddWithValue("@id", id);
         cmd.Parameters.AddWithValue("@ft", b);
         cmd.Parameters.AddWithValue("@data", Convert.ToDateTime(dataNascimento));
+        cmd.Parameters.AddWithValue("@sex", s);
 
         cn.Open();
         cmd.ExecuteNonQuery();
@@ -160,6 +161,33 @@ public class BDRegisto
         return idOperacao;
     }
 
+
+    public int insertOperacao(string nome, string tipo,string res,string desc, DateTime data, DateTime hora, string local)
+    {
+       
+        
+        this.cn.ConnectionString = this.connectionString;
+        string sql = "Insert INTO OPERACOES (AGE_RESPONS,NOMEOPERACAO,TIPOOPERACAO,DESCRICAOOPERACAO,DATAOPERA,HORAINICIOOPE,LOCAL) VALUES(@RES,@NOME,@TIPO,@DIS,@DATA,@HORA,@LOCAL); SELECT CAST(scope_identity() AS int);";
+        SqlCommand cmd = new SqlCommand(sql, cn);
+        cmd.Parameters.AddWithValue("@RES", Convert.ToDecimal(res));
+        cmd.Parameters.AddWithValue("@NOME", nome);
+        cmd.Parameters.AddWithValue("@TIPO", tipo);
+        cmd.Parameters.AddWithValue("@DIS", desc);
+        cmd.Parameters.AddWithValue("@DATA", data);
+        cmd.Parameters.AddWithValue("@HORA", hora);
+        cmd.Parameters.AddWithValue("@LOCAL", local);
+
+
+
+
+        cn.Open();
+        int idOperacao = (int)cmd.ExecuteScalar();
+        //cmd.ExecuteNonQuery();
+        cmd.Dispose();
+        cn.Close();
+        return idOperacao;
+    }
+
     public DataTable getViaturaLivre()
     {
         DataTable datatable = new DataTable();
@@ -210,7 +238,36 @@ public class BDRegisto
         return data;
     }
 
+   
+   
 
+    public DataTable getFormcaoes(string cod)
+    {
+        DataTable data = new DataTable();
+        DateTime d = DateTime.Today;
+        string sql = "Select CODFORMACAO, TITULOFORMACAO, AMBITOFORMACAO,FORMADOR From FORMACOES Where  CODFORMACAO=@cod";
+        this.cn.ConnectionString = this.connectionString;
+        SqlCommand cmd = new SqlCommand(sql, cn);
+        cmd.Parameters.AddWithValue("@cod", Convert.ToInt32(cod));
+        cn.Open();
+        data.Load(cmd.ExecuteReader());
+        cn.Close();
+        return data;
+    }
+
+    public DataTable getOperacao(string codPatrulha)
+    {
+        DataTable data = new DataTable();
+        DateTime d = DateTime.Today;
+        string sql = "Select CODOPERACAO, NOME, HORAINICIOOPE,LOCAL,TIPOOPERACAO From Operacoes O, AGENTE A, PESSOA P Where O.AGE_RESPONS=A.DISTINTIVO AND A.ID = P.ID  AND CODOPERACAO=@cod";
+        this.cn.ConnectionString = this.connectionString;
+        SqlCommand cmd = new SqlCommand(sql, cn);
+        cmd.Parameters.AddWithValue("@cod", Convert.ToInt32(codPatrulha));
+        cn.Open();
+        data.Load(cmd.ExecuteReader());
+        cn.Close();
+        return data;
+    }
 
     public DataTable getViatura(string cod)
     {
@@ -267,6 +324,110 @@ public class BDRegisto
         cn.Close();
         return data;
         
+    }
+
+    public DataTable getOperacoes()
+    {
+        DataTable data = new DataTable();
+        DateTime d = DateTime.Today;
+        string sql = "Select CODOPERACAO, AGE_RESPONS, HORAINICIOOPE,LOCAL From Operacoes Where TIPOOPERACAO not like 'PATRULHAMENTO' AND DATAOPERA>=@data  ";
+        this.cn.ConnectionString = this.connectionString;
+        SqlCommand cmd = new SqlCommand(sql, cn);
+        cmd.Parameters.AddWithValue("@data", d);
+        cn.Open();
+        data.Load(cmd.ExecuteReader());
+        cn.Close();
+        return data;
+
+    }
+
+
+    public DataTable getFormacoes()
+    {
+        DataTable data = new DataTable();
+        DateTime d = DateTime.Today;
+        string sql = "Select * From FORMACOES Where  DATAFORMACAO>=@data  ";
+        this.cn.ConnectionString = this.connectionString;
+        SqlCommand cmd = new SqlCommand(sql, cn);
+        cmd.Parameters.AddWithValue("@data", d);
+        cn.Open();
+        data.Load(cmd.ExecuteReader());
+        cn.Close();
+        return data;
+
+    }
+
+
+
+    public int MarcarFormacao(DateTime data, DateTime hora, string formador, string tema,string descricao,string ambito)
+    {
+        int n = -1;
+        try
+        {
+            
+
+            this.cn.ConnectionString = this.connectionString;
+            string sql = "Insert INTO FORMACOES (TITULOFORMACAO,AMBITOFORMACAO,FORMADOR,DESCRICAOFORMACAO,DATAFORMACAO,HORAFORMACAO) VALUES(@TITULO,@ambito,@formador,@descr,@DATA,@HORA); SELECT CAST(scope_identity() AS int);";
+            SqlCommand cmd = new SqlCommand(sql, cn);
+            cmd.Parameters.AddWithValue("@TITULO", tema);
+            cmd.Parameters.AddWithValue("@ambito", ambito);
+            cmd.Parameters.AddWithValue("@descr", descricao);
+            cmd.Parameters.AddWithValue("@data", data);
+            cmd.Parameters.AddWithValue("@hora", hora);
+            cmd.Parameters.AddWithValue("@formador",formador);
+            cn.Open();
+            n = (int)cmd.ExecuteScalar();
+            //cmd.ExecuteNonQuery();
+            cmd.Dispose();
+            cn.Close();
+            return n;
+        }
+        catch (Exception e)
+        {
+            n = -1;
+        }
+        return -1;
+    }
+
+
+    public DataTable Trabalha(DateTime Dia)
+    {
+      
+        DataTable data = new DataTable();
+        
+        string sql = "Select Distinct A.DISTINTIVO From AGENTE A, (SELECT DISTINTIVO FROM HORARIO WHERE DATA_FIM_P =@data)h Where A.DISTINTIVO!=H.DISTINTIVO";
+        this.cn.ConnectionString = this.connectionString;
+        SqlCommand cmd = new SqlCommand(sql, cn);
+        cmd.Parameters.AddWithValue("@data", Dia);
+        cn.Open();
+        data.Load(cmd.ExecuteReader());
+        cn.Close();
+        return data;
+    }
+
+    public void InserAlunos(int f,decimal d)
+    {
+        this.cn.ConnectionString = this.connectionString;
+        string sql = "Insert INTO ALUNOS (DISTINTIVO,CODFORMACAO) VALUES(@D,@C)";
+        SqlCommand cmd = new SqlCommand(sql, cn);
+        cmd.Parameters.AddWithValue("@D", Convert.ToInt32(d));
+        cmd.Parameters.AddWithValue("@C", f);
+
+        cn.Open();
+        cmd.ExecuteNonQuery();
+        cn.Close();
+    }
+
+    public void agentesFormacao(int n, DateTime data)
+    {
+        DataTable AGENTES = Trabalha(data);
+        decimal d;
+        for (int i=0; i< AGENTES.Rows.Count; i++)
+        {
+           d=(decimal)AGENTES.Rows[i]["DISTINTIVO"];
+           InserAlunos(n, d);
+        }
+
     }
 
     public void updateHoraTrabalho(string dis, DateTime data, DateTime he, DateTime hs)

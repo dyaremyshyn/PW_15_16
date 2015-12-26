@@ -21,6 +21,12 @@
     <asp:Label ID="LTema" Visible="false" runat="server" Text="Tema:"></asp:Label>
     <asp:TextBox ID="Tema" Visible="false" runat="server"></asp:TextBox>
     <p></p>
+    <asp:Label ID="AMbitol" Visible="false" runat="server" Text="Âmbito:"></asp:Label>
+    <asp:TextBox ID="Ambito" Visible="false" runat="server"></asp:TextBox>
+    <p></p>
+     <asp:Label ID="Descricaol" Visible="false" runat="server" Text="Descrição:"></asp:Label>
+    <asp:TextBox ID="Descricao" TextMode="MultiLine" Visible="false" runat="server"></asp:TextBox>
+    <p></p>
     <asp:Button ID="Marcar" Visible="false" runat="server" Text="Marcar" OnClick="Marcar_Click" />
     <asp:Button ID="Cancelar" Visible="false" runat="server" Text="Cancelar" OnClick="Cancelar_Click" />
 </asp:Content>

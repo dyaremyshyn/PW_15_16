@@ -68,6 +68,22 @@
                                  <asp:RequiredFieldValidator runat="server" ControlToValidate="Nome" ErrorMessage="User Name is required." ValidationGroup="CreateUserWizard1" ToolTip="User Name is required." ID="RequiredFieldValidator3">*</asp:RequiredFieldValidator>
                             </td>
                             </tr>
+                        <tr>
+                            <td align="right" class="auto-style2">
+                                 <asp:Label runat="server" AssociatedControlID="UserName" ID="Label9">Sexo:</asp:Label>
+
+                            </td>
+                            <td>
+                                <asp:RadioButtonList ID="SEXO" RepeatDirection="Horizontal" runat="server">
+                                    <asp:ListItem>MASCULINO</asp:ListItem>
+                                    <asp:ListItem>FEMININO</asp:ListItem>
+                                </asp:RadioButtonList>
+                            </td>
+                            <td>
+                                 <asp:RequiredFieldValidator runat="server" ControlToValidate="Nome" ErrorMessage="User Name is required." ValidationGroup="CreateUserWizard1" ToolTip="User Name is required." ID="RequiredFieldValidator8">*</asp:RequiredFieldValidator>
+                            </td>
+                                
+                        </tr>
                             <tr>
                             <td align="right" class="auto-style7">
                                 <asp:Label ID="Label1" runat="server" AssociatedControlID="UserName">NºCidadao:</asp:Label>
