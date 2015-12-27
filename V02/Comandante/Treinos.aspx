@@ -5,6 +5,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder3" Runat="Server">
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder4" Runat="Server">
+      <h1> <asp:Label ID="Label2" runat="server" Text="Treinos Tácticos"></asp:Label> </h1>
     <asp:Label ID="Treinolabel" runat="server" Text="Formações Agendadas:"></asp:Label>
     <asp:DropDownList ID="TreinosAgendados" runat="server"></asp:DropDownList>
     <p></p>
@@ -12,11 +13,13 @@
     <asp:Label ID="DataL" Visible="false" runat="server" Text="Data:"></asp:Label>
     <asp:Calendar ID="Data" Visible="false" runat="server"></asp:Calendar>
     <p></p>
-    <asp:Label ID="HoraL" Visible="false" runat="server" Text="Hora:"></asp:Label>
-    <asp:DropDownList ID="Hora" Visible="false" runat="server"></asp:DropDownList>
+    <asp:Label ID="HoraL" Visible="false" runat="server" Text="Hora de Íncio:"></asp:Label>
+    <asp:DropDownList ID="Hora" AutoPostBack="true" Visible="false" runat="server" Height="16px" Width="69px"></asp:DropDownList>
+    &nbsp;  <asp:Label ID="Horaf" Visible="false" runat="server" Text="Hora de fim:"></asp:Label>
+    <asp:DropDownList ID="horafim" Visible="false" runat="server" Height="16px" Width="69px"></asp:DropDownList>
     <p></p>
     <asp:Label ID="Rtreino" runat="server" Visible="false" Text="Treinador:"></asp:Label>
-    <asp:DropDownList ID="Treinador" Visible="false" runat="server"></asp:DropDownList>
+    <asp:DropDownList ID="Treinador" AutoPostBack="true" Visible="false" runat="server"></asp:DropDownList>
     <p></p>
     <asp:Label ID="LTema" Visible="false" runat="server" Text="Tema:"></asp:Label>
     <asp:TextBox ID="Tema" Visible="false" runat="server"></asp:TextBox>

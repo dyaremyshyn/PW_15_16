@@ -104,6 +104,8 @@ public partial class Comandante_Operacoes : System.Web.UI.Page
     }
     protected void NovaOperacao_Click(object sender, EventArgs e)
     {
+        OperacoesAgendadas.SelectedIndex = 0;
+        op.Visible = false;
         Label1.Visible = false;
         OperacoesAgendadas.Visible = false;
         NovaOperacao.Visible = false;

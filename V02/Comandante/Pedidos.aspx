@@ -5,6 +5,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder3" Runat="Server">
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder4" Runat="Server">
+      <h1> <asp:Label ID="Label2" runat="server" Text="Pedidos"></asp:Label> </h1>
     <asp:Label ID="PedidoIF" runat="server" Text="Situação:"></asp:Label>
     <asp:RadioButtonList AutoPostBack="true" ID="RadioButtonList1" runat="server">
         <asp:ListItem>Visto</asp:ListItem>

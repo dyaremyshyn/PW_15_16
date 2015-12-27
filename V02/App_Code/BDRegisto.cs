@@ -45,6 +45,7 @@ public class BDRegisto
 
     }
 
+
     public string getConnectionString()
     {
         return this.connectionString;
@@ -73,6 +74,28 @@ public class BDRegisto
         string base64String = Convert.ToBase64String(bytes, 0, bytes.Length);
         string url = "data:image/png;base64," + base64String;
         return url;
+    }
+
+    public int calculaIdade(DateTime DataNascimento)
+    {
+        int anos = DateTime.Now.Year - DataNascimento.Year;
+        if (DateTime.Now.Month < DataNascimento.Month || (DateTime.Now.Month == DataNascimento.Month && DateTime.Now.Day < DataNascimento.Day))
+            anos--;
+        return anos;
+    }
+
+    public DataTable getAgentedadosNaoPolicias(string distintivo)
+    {
+        string sql = "Select * from Pessoa p, Agente a where p.id=a.id and a.distintivo='" + distintivo + "'";
+        this.cn.ConnectionString = this.connectionString;
+        SqlCommand cmd = new SqlCommand(sql, cn);
+        DataTable data = new DataTable();
+        SqlDataAdapter da = new SqlDataAdapter();
+        cmd.CommandType = CommandType.Text;
+        cmd.Connection = cn;
+        da.SelectCommand = cmd;
+        da.Fill(data);
+        return data;
     }
 
     public DataTable getHorasEntrada()
@@ -255,6 +278,66 @@ public class BDRegisto
         return data;
     }
 
+    public DataTable getTreinos()
+    {
+        DataTable data = new DataTable();
+        DateTime d = DateTime.Today;
+        string sql = "Select * From TREINOS  Where DATA_TREINO>@cod";
+        this.cn.ConnectionString = this.connectionString;
+        SqlCommand cmd = new SqlCommand(sql, cn);
+        cmd.Parameters.AddWithValue("@cod", d);
+        cn.Open();
+        data.Load(cmd.ExecuteReader());
+        cn.Close();
+        return data;
+    }
+
+
+    public DataTable getTreinos(string cod)
+    {
+        DataTable data = new DataTable();
+        DateTime d = DateTime.Today;
+        string sql = "Select COD_TREINO,TIPOTREINO, TITULOFORMACAO,NOME, HORA_INICIO_TREINO TREINOS T, PESSOA P, AGENTE A Where p.ID=A.id and A.DISTINTIVO=T.DISTINTIVO  CODFORMACAO=@cod";
+        this.cn.ConnectionString = this.connectionString;
+        SqlCommand cmd = new SqlCommand(sql, cn);
+        cmd.Parameters.AddWithValue("@cod", Convert.ToInt32(cod));
+        cn.Open();
+        data.Load(cmd.ExecuteReader());
+        cn.Close();
+        return data;
+    }
+
+    public int marcarTreino(DateTime data, DateTime h, DateTime hs,string treinador,string tema)
+    {
+        int n = -1;
+        this.cn.ConnectionString = this.connectionString;
+        string sql = "Insert INTO TREINOS (DISTINTIVO,TITULOTREINO,DATA_TREINO,HORA_INICIO_TREINO,HORA_FIM_TREINO) VALUES(@TREINADOR,@TIPO,@DATA,@HORAINICIAL,@HORAFIM); SELECT CAST(scope_identity() AS int);";
+        SqlCommand cmd = new SqlCommand(sql, cn);
+        cmd.Parameters.AddWithValue("@TREINADOR", Convert.ToDecimal(treinador));
+        cmd.Parameters.AddWithValue("@TIPO", tema);
+        cmd.Parameters.AddWithValue("@DATA", data);
+        cmd.Parameters.AddWithValue("@HORAINICIAL", h);
+        cmd.Parameters.AddWithValue("@HORAFIM", hs);
+        cn.Open();
+        n = (int)cmd.ExecuteScalar();
+        //cmd.ExecuteNonQuery();
+        cmd.Dispose();
+        cn.Close();
+        return n;
+    }
+
+    public void inserAgenteTreino(string agente, int id){
+        this.cn.ConnectionString = this.connectionString;
+        string sql = "Insert INTO TREINADOS (COD_TREINO,DISTINTIVO) VALUES(@treino,@agente)";
+        SqlCommand cmd = new SqlCommand(sql, cn);
+        cmd.Parameters.AddWithValue("@treino", id);
+        cmd.Parameters.AddWithValue("@agente", agente);
+        cn.Open();
+        cmd.ExecuteNonQuery();
+        cn.Close();
+       
+    }
+
     public DataTable getOperacao(string codPatrulha)
     {
         DataTable data = new DataTable();
@@ -405,6 +488,77 @@ public class BDRegisto
         return data;
     }
 
+    public DataTable getAgentesFolga(DateTime dia)
+    {
+        this.cn.ConnectionString = this.connectionString;
+        DataTable data = new DataTable();
+        string sql = "SELECT count(*) FROM HORARIO WHERE DATA_FIM_P =@data";
+        SqlCommand cmd = new SqlCommand(sql, cn);
+        cmd.Parameters.AddWithValue("@data", dia);
+        cn.Open();
+        int n = Convert.ToInt32(cmd.ExecuteScalar());
+        cn.Close();
+        if(n>0){
+            sql = "Select Distinct A.DISTINTIVO, NOME From Pessoa p, AGENTE A, (SELECT DISTINTIVO FROM HORARIO WHERE DATA_FIM_P =@data)h Where A.DISTINTIVO!=H.DISTINTIVO and p.ID=a.id";
+            this.cn.ConnectionString = this.connectionString;
+            cmd = new SqlCommand(sql, cn);
+            cmd.Parameters.AddWithValue("@data", dia);
+            cn.Open();
+            data.Load(cmd.ExecuteReader());
+            cn.Close();
+        }
+        else
+        {
+            sql = "Select NOME, DISTINTIVO from PESSOA p, AGENTE a WHERE a.ID=p.ID";
+            this.cn.ConnectionString = this.connectionString;
+            cmd = new SqlCommand(sql, cn);
+            cmd.Parameters.AddWithValue("@data", dia);
+            cn.Open();
+            data.Load(cmd.ExecuteReader());
+            cn.Close();
+        }
+            
+        return data;
+    }
+
+    public DataTable getAgentesFolga(DateTime dia, string distintivo)
+    {
+        this.cn.ConnectionString = this.connectionString;
+        DataTable data = new DataTable();
+        string sql = "SELECT count(*) FROM HORARIO WHERE DATA_FIM_P =@data";
+        SqlCommand cmd = new SqlCommand(sql, cn);
+        cmd.Parameters.AddWithValue("@data", dia);
+        cn.Open();
+        int n = Convert.ToInt32(cmd.ExecuteScalar());
+        cn.Close();
+        if (n > 0)
+        {
+            sql = "Select Distinct A.DISTINTIVO, NOME From Pessoa p, AGENTE A, (SELECT DISTINTIVO FROM HORARIO WHERE DATA_FIM_P =@data)h Where A.DISTINTIVO!=H.DISTINTIVO and p.ID=a.id and a.DISTINTIVO <>@dis";
+            this.cn.ConnectionString = this.connectionString;
+            cmd = new SqlCommand(sql, cn);
+            cmd.Parameters.AddWithValue("@data", dia);
+            cmd.Parameters.AddWithValue("@dis", Convert.ToDecimal(distintivo));
+            cn.Open();
+            data.Load(cmd.ExecuteReader());
+            cn.Close();
+        }
+        else
+        {
+            sql = "Select NOME, DISTINTIVO from PESSOA p, AGENTE a WHERE a.ID=p.ID and a.DISTINTIVO !=@dis";
+            this.cn.ConnectionString = this.connectionString;
+            cmd = new SqlCommand(sql, cn);
+            cmd.Parameters.AddWithValue("@data", dia);
+            cmd.Parameters.AddWithValue("@dis", Convert.ToDecimal(distintivo));
+            cn.Open();
+            data.Load(cmd.ExecuteReader());
+            cn.Close();
+        }
+
+        return data;
+    }
+        
+        
+
     public void InserAlunos(int f,decimal d)
     {
         this.cn.ConnectionString = this.connectionString;
@@ -535,6 +689,23 @@ public class BDRegisto
         return url;
     }
 
+    public string carregaFotoCidadao(string d)
+    {
+        string sql = "SELECT FOTO FROM PESSOA WHERE id='" + d + "'";
+        this.cn.ConnectionString = this.connectionString;
+        SqlCommand cmd = new SqlCommand(sql, cn);
+        DataTable data = new DataTable();
+        SqlDataAdapter da = new SqlDataAdapter();
+        cmd.CommandType = CommandType.Text;
+        cmd.Connection = cn;
+        da.SelectCommand = cmd;
+        da.Fill(data);
+        byte[] bytes = (byte[])data.Rows[0]["FOTO"];
+        string base64String = Convert.ToBase64String(bytes, 0, bytes.Length);
+        string url = "data:image/png;base64," + base64String;
+        return url;
+    }
+
     public bool procuraAgentePorNCidadao(string cc){
         string sql = "Select count(*) FROM PESSOA WHERE NCIDADAO='"+cc+"'";
         this.cn.ConnectionString = this.connectionString;
@@ -583,12 +754,60 @@ public class BDRegisto
             return true;
         else
             return false;
-    } 
+    }
+
+    public DataTable getArmasAgente(string agente)
+    {
+        string sql = "Select * FROM ARMAS WHERE DISTINTIVO = '" + agente + "'";
+        this.cn.ConnectionString = this.connectionString;
+        SqlCommand cmd = new SqlCommand(sql, cn);
+        DataTable data = new DataTable();
+        SqlDataAdapter da = new SqlDataAdapter();
+        cmd.CommandType = CommandType.Text;
+        cmd.Connection = cn;
+        da.SelectCommand = cmd;
+        da.Fill(data);
+        return data;
+    }
+
+    public string getDescricaoArma(string serial)
+    {
+        string sql = "Select * FROM ARMAS WHERE NARMA = '" + serial + "'";
+        this.cn.ConnectionString = this.connectionString;
+        SqlCommand cmd = new SqlCommand(sql, cn);
+        DataTable data = new DataTable();
+        SqlDataAdapter da = new SqlDataAdapter();
+        cmd.CommandType = CommandType.Text;
+        cmd.Connection = cn;
+        da.SelectCommand = cmd;
+        da.Fill(data);
+        string desc = "Modelo: " + ((string)data.Rows[0]["MODELO"]) + "\n" + "Fabricante: " + ((string)data.Rows[0]["FABRICANTE"])+"\n";
+        desc = desc + "Nº ARMA: " + ((int)data.Rows[0]["NARMA"]).ToString()+"\n";
+        desc = desc + "Calibre: " + ((double)data.Rows[0]["TAM_BALA"]).ToString();
+        return desc;
+
+    }
+
+    public string getFuncao(string Distintivo)
+    {
+        string sql = "Select FUNCAO FROM AGENTE WHERE DISTINTIVO = '"+Distintivo+"'";
+        this.cn.ConnectionString = this.connectionString;
+        SqlCommand cmd = new SqlCommand(sql, cn);
+        DataTable data = new DataTable();
+        SqlDataAdapter da = new SqlDataAdapter();
+        cmd.CommandType = CommandType.Text;
+        cmd.Connection = cn;
+        da.SelectCommand = cmd;
+        da.Fill(data);
+
+        return ((string)data.Rows[0]["FUNCAO"]);
+
+    }
 
 
    public DataTable carregaAgentes()
     {
-        string sql = "Select NOME ,DISTINTIVO,FOTO FROM PESSOA P, AGENTE A WHERE A.ID = P.ID";
+        string sql = "Select NOME ,DISTINTIVO,FOTO,FUNCAO FROM PESSOA P, AGENTE A WHERE A.ID = P.ID";
         this.cn.ConnectionString = this.connectionString;
         SqlCommand cmd = new SqlCommand(sql, cn);
         DataTable data = new DataTable();
@@ -701,5 +920,207 @@ public class BDRegisto
 
         cn.Close();
     }
+
+
+   public DataTable pesquisaCidadaoPorNome(string nome){
+        string sql = "Select * From Pessoa where NOME like '%" + nome + "%'";
+        this.cn.ConnectionString = this.connectionString;
+        SqlCommand cmd = new SqlCommand(sql, cn);
+        DataTable data = new DataTable();
+        SqlDataAdapter da = new SqlDataAdapter();
+        cmd.CommandType = CommandType.Text;
+        cmd.Connection = cn;
+        da.SelectCommand = cmd;
+        da.Fill(data);
+        return data;
+    }
+
+   public DataTable pesquisaCidadaoPorNCIDADAO(string cc)
+   {
+       string sql = "Select * From Pessoa where NCIDADAO='" + cc + "'";
+       this.cn.ConnectionString = this.connectionString;
+       SqlCommand cmd = new SqlCommand(sql, cn);
+       DataTable data = new DataTable();
+       SqlDataAdapter da = new SqlDataAdapter();
+       cmd.CommandType = CommandType.Text;
+       cmd.Connection = cn;
+       da.SelectCommand = cmd;
+       da.Fill(data);
+       return data;
+   }
+
+   public DataTable pesquisaCidadaoPorNIF(string NIF)
+   {
+       string sql = "Select * From Pessoa where NCONTRIBUINTE='" + NIF + "'";
+       this.cn.ConnectionString = this.connectionString;
+       SqlCommand cmd = new SqlCommand(sql, cn);
+       DataTable data = new DataTable();
+       SqlDataAdapter da = new SqlDataAdapter();
+       cmd.CommandType = CommandType.Text;
+       cmd.Connection = cn;
+       da.SelectCommand = cmd;
+       da.Fill(data);
+       return data;
+   }
+
+   public DataTable pesquisaCidadaoPorMorada(string morada)
+   {
+       string sql = "Select * From Pessoa where MORADA like '%" + morada + "%'";
+       this.cn.ConnectionString = this.connectionString;
+       SqlCommand cmd = new SqlCommand(sql, cn);
+       DataTable data = new DataTable();
+       SqlDataAdapter da = new SqlDataAdapter();
+       cmd.CommandType = CommandType.Text;
+       cmd.Connection = cn;
+       da.SelectCommand = cmd;
+       da.Fill(data);
+       return data;
+   }
+
+   public DataTable pesquisaCidadaoPorContato(string contato)
+   {
+       string sql = "Select * From Pessoa where NTELEFONE='" + contato + "'";
+       this.cn.ConnectionString = this.connectionString;
+       SqlCommand cmd = new SqlCommand(sql, cn);
+       DataTable data = new DataTable();
+       SqlDataAdapter da = new SqlDataAdapter();
+       cmd.CommandType = CommandType.Text;
+       cmd.Connection = cn;
+       da.SelectCommand = cmd;
+       da.Fill(data);
+       return data;
+   }
+
+   public DataTable pesquisaCidadaoPorLocalidade(string Localidade)
+   {
+       string sql = "Select * From Pessoa where LOCALIDADE like '%" + Localidade + "%'";
+       this.cn.ConnectionString = this.connectionString;
+       SqlCommand cmd = new SqlCommand(sql, cn);
+       DataTable data = new DataTable();
+       SqlDataAdapter da = new SqlDataAdapter();
+       cmd.CommandType = CommandType.Text;
+       cmd.Connection = cn;
+       da.SelectCommand = cmd;
+       da.Fill(data);
+       return data;
+   }
+
+   public DataTable pesquisaCidadaoPorCP(string cp)
+   {
+       string sql = "Select * From Pessoa where COD_POSTAL = '" + cp + "'";
+       this.cn.ConnectionString = this.connectionString;
+       SqlCommand cmd = new SqlCommand(sql, cn);
+       DataTable data = new DataTable();
+       SqlDataAdapter da = new SqlDataAdapter();
+       cmd.CommandType = CommandType.Text;
+       cmd.Connection = cn;
+       da.SelectCommand = cmd;
+       da.Fill(data);
+       return data;
+   }
+
+   public DataTable getCidadaoPorId(string id)
+   {
+       string sql = "Select * From Pessoa where id = '" + id+ "'";
+       this.cn.ConnectionString = this.connectionString;
+       SqlCommand cmd = new SqlCommand(sql, cn);
+       DataTable data = new DataTable();
+       SqlDataAdapter da = new SqlDataAdapter();
+       cmd.CommandType = CommandType.Text;
+       cmd.Connection = cn;
+       da.SelectCommand = cmd;
+       da.Fill(data);
+       return data;
+   }
+
+   public DataTable getInfos()
+   {
+       string sql = "Select * From Noticias";
+       this.cn.ConnectionString = this.connectionString;
+       SqlCommand cmd = new SqlCommand(sql, cn);
+       DataTable data = new DataTable();
+       SqlDataAdapter da = new SqlDataAdapter();
+       cmd.CommandType = CommandType.Text;
+       cmd.Connection = cn;
+       da.SelectCommand = cmd;
+       da.Fill(data);
+       return data;
+   }
+
+   public string getFotoNocia(string cod)
+   {
+       string sql = "Select IMAGEMN From NOTICIAS where COD_NOTICIA='" + cod + "'";
+       this.cn.ConnectionString = this.connectionString;
+       SqlCommand cmd = new SqlCommand(sql, cn);
+       DataTable data = new DataTable();
+       SqlDataAdapter da = new SqlDataAdapter();
+       cmd.CommandType = CommandType.Text;
+       cmd.Connection = cn;
+       da.SelectCommand = cmd;
+       da.Fill(data);
+       byte[] bytes = (byte[])data.Rows[0]["FOTO"];
+       string base64String = Convert.ToBase64String(bytes, 0, bytes.Length);
+       string url = "data:image/png;base64," + base64String;
+       return url;
+   }
+
+
+   public DataTable getTextNocia(string cod)
+   {
+       string sql = "Select * From NOTICIAS where COD_NOTICIA='" + cod + "'";
+       this.cn.ConnectionString = this.connectionString;
+       SqlCommand cmd = new SqlCommand(sql, cn);
+       DataTable data = new DataTable();
+       SqlDataAdapter da = new SqlDataAdapter();
+       cmd.CommandType = CommandType.Text;
+       cmd.Connection = cn;
+       da.SelectCommand = cmd;
+       da.Fill(data);
+       
+       
+      
+       return data;
+   }
+
+    public string getDisintivoUser(string user)
+   {
+       string sql = "Select DISTINTIVO From PESSOA P, AGENTE A where A.ID=p.ID IDRegistado='" +user +"'";
+       this.cn.ConnectionString = this.connectionString;
+       SqlCommand cmd = new SqlCommand(sql, cn);
+       DataTable data = new DataTable();
+       SqlDataAdapter da = new SqlDataAdapter();
+       cmd.CommandType = CommandType.Text;
+       cmd.Connection = cn;
+       da.SelectCommand = cmd;
+       da.Fill(data);
+       string distintivo = (string)data.Rows[0]["DISTINTIVO"];
+        return distintivo;
+       
+   }
+
+   public void inserNoticia(string titulo, string texto, byte[] b,string user)
+   {
+       DateTime hora = DateTime.Now;
+       this.cn.ConnectionString = this.connectionString;
+       string StrInsert = "INSERT INTO NOTICIA (DISTINTIVO,TITULONOTICIA,NOTICIA,IMAGEMN,DATANOTICIA,HORA VALUES(@disti,@titulo,@noticia,@img,@data,@hora)";
+       SqlCommand cmd = new SqlCommand(StrInsert, cn);
+       cmd.Parameters.AddWithValue("@disti", getDisintivoUser(user));
+       cmd.Parameters.AddWithValue("@titulo", titulo);
+       cmd.Parameters.AddWithValue("@noticia", texto);
+       cmd.Parameters.AddWithValue("@img", b);
+       cmd.Parameters.AddWithValue("@data", DateTime.Today);
+       cmd.Parameters.AddWithValue("@data", hora);
+       cn.Open();
+       cmd.ExecuteNonQuery();
+       cmd.Dispose();
+       cn.Close();
+   }
+
+
+
+
+
+
+
 
 }

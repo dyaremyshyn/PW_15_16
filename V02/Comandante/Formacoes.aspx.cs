@@ -17,7 +17,7 @@ public partial class Comandante_Formacoes : System.Web.UI.Page
         {
             aux = new ListItem("Selecione");
             FormacoesAgendadas.DataSource = bd.getFormacoes();
-            FormacoesAgendadas.DataTextField = "HORAFORMACAO";
+            FormacoesAgendadas.DataTextField = "HORA_INICIO_TREINO";
             FormacoesAgendadas.DataValueField = "CODFORMACAO";
             FormacoesAgendadas.DataBind();
             FormacoesAgendadas.Items.Insert(0, aux);
