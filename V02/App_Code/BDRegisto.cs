@@ -1058,10 +1058,39 @@ public class BDRegisto
        cmd.Connection = cn;
        da.SelectCommand = cmd;
        da.Fill(data);
-       byte[] bytes = (byte[])data.Rows[0]["FOTO"];
+       byte[] bytes = (byte[])data.Rows[0]["IMAGEMN"];
        string base64String = Convert.ToBase64String(bytes, 0, bytes.Length);
        string url = "data:image/png;base64," + base64String;
        return url;
+   }
+   public void upateNoticia(string id,string distintivo,string titulo, string noticia)
+   {
+       this.cn.ConnectionString = this.connectionString;
+       DateTime data=DateTime.Today;
+       DateTime hora = DateTime.Now;
+       string sql = "UPDATE NOTICIAS SET DISTINTIVO = @dist, TITULONOTICIA = @tnoticia, NOTICIA=@noticia, DATANOTICIA=@data, HORA=@hora WHERE  COD_NOTICIA ='"+id+"' ";
+       SqlCommand cmd = new SqlCommand(sql, cn);
+       cmd.Parameters.AddWithValue("@dist", Convert.ToDecimal(getDisintivoUser(distintivo)));
+       cmd.Parameters.AddWithValue("@tnoticia", titulo);
+       cmd.Parameters.AddWithValue("@noticia", noticia);
+       cmd.Parameters.AddWithValue("@data", data);
+       cmd.Parameters.AddWithValue("@hora", hora);
+
+       cn.Open();
+       cmd.ExecuteNonQuery();
+       cmd.Dispose();
+       cn.Close();
+   }
+
+   public void DeleteNocia(string id)
+   {
+       this.cn.ConnectionString = this.connectionString;
+       string sql = "DELETE from NOTICIAS WHERE  COD_NOTICIA ='" + id + "' ";
+       SqlCommand cmd = new SqlCommand(sql, cn);
+       cn.Open();
+       cmd.ExecuteNonQuery();
+       cmd.Dispose();
+       cn.Close();
    }
 
 
@@ -1084,16 +1113,15 @@ public class BDRegisto
 
     public string getDisintivoUser(string user)
    {
-       string sql = "Select DISTINTIVO From PESSOA P, AGENTE A where A.ID=p.ID IDRegistado='" +user +"'";
+       string sql = "Select A.DISTINTIVO From PESSOA P, AGENTE A where A.ID=P.ID AND P.IDRegistado='"+user+"'";
        this.cn.ConnectionString = this.connectionString;
-       SqlCommand cmd = new SqlCommand(sql, cn);
        DataTable data = new DataTable();
-       SqlDataAdapter da = new SqlDataAdapter();
-       cmd.CommandType = CommandType.Text;
-       cmd.Connection = cn;
-       da.SelectCommand = cmd;
-       da.Fill(data);
-       string distintivo = (string)data.Rows[0]["DISTINTIVO"];
+       SqlCommand cmd = new SqlCommand(sql, cn);
+      // cmd.Parameters.AddWithValue("@a", user);
+       cn.Open();
+       data.Load(cmd.ExecuteReader());
+       cn.Close();
+       string distintivo =( (decimal)data.Rows[0]["DISTINTIVO"]).ToString();
         return distintivo;
        
    }
@@ -1102,14 +1130,14 @@ public class BDRegisto
    {
        DateTime hora = DateTime.Now;
        this.cn.ConnectionString = this.connectionString;
-       string StrInsert = "INSERT INTO NOTICIA (DISTINTIVO,TITULONOTICIA,NOTICIA,IMAGEMN,DATANOTICIA,HORA VALUES(@disti,@titulo,@noticia,@img,@data,@hora)";
+       string StrInsert = "INSERT INTO NOTICIAS (DISTINTIVO,TITULONOTICIA,NOTICIA,IMAGEMN,DATANOTICIA,HORA) VALUES(@disti,@titulo,@noticia,@img,@data,@hora)";
        SqlCommand cmd = new SqlCommand(StrInsert, cn);
        cmd.Parameters.AddWithValue("@disti", getDisintivoUser(user));
        cmd.Parameters.AddWithValue("@titulo", titulo);
        cmd.Parameters.AddWithValue("@noticia", texto);
        cmd.Parameters.AddWithValue("@img", b);
        cmd.Parameters.AddWithValue("@data", DateTime.Today);
-       cmd.Parameters.AddWithValue("@data", hora);
+       cmd.Parameters.AddWithValue("@hora", hora);
        cn.Open();
        cmd.ExecuteNonQuery();
        cmd.Dispose();
