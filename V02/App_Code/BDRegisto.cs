@@ -706,6 +706,23 @@ public class BDRegisto
         return url;
     }
 
+    public string carregaFotoUser(string d)
+    {
+        string sql = "SELECT FOTO FROM PESSOA WHERE IDRegistado='" + d + "'";
+        this.cn.ConnectionString = this.connectionString;
+        SqlCommand cmd = new SqlCommand(sql, cn);
+        DataTable data = new DataTable();
+        SqlDataAdapter da = new SqlDataAdapter();
+        cmd.CommandType = CommandType.Text;
+        cmd.Connection = cn;
+        da.SelectCommand = cmd;
+        da.Fill(data);
+        byte[] bytes = (byte[])data.Rows[0]["FOTO"];
+        string base64String = Convert.ToBase64String(bytes, 0, bytes.Length);
+        string url = "data:image/png;base64," + base64String;
+        return url;
+    }
+
     public bool procuraAgentePorNCidadao(string cc){
         string sql = "Select count(*) FROM PESSOA WHERE NCIDADAO='"+cc+"'";
         this.cn.ConnectionString = this.connectionString;
@@ -1033,6 +1050,20 @@ public class BDRegisto
        return data;
    }
 
+   public DataTable getUser(string user)
+   {
+       string sql = "Select * From Pessoa where IDRegistado = '" + user + "'";
+       this.cn.ConnectionString = this.connectionString;
+       SqlCommand cmd = new SqlCommand(sql, cn);
+       DataTable data = new DataTable();
+       SqlDataAdapter da = new SqlDataAdapter();
+       cmd.CommandType = CommandType.Text;
+       cmd.Connection = cn;
+       da.SelectCommand = cmd;
+       da.Fill(data);
+       return data;
+   }
+
    public DataTable getInfos()
    {
        string sql = "Select * From Noticias";
@@ -1125,6 +1156,57 @@ public class BDRegisto
         return distintivo;
        
    }
+
+    public void updateUserWithFoto(string user,string nome, string cidadao, string nif, string morada,string localidade,string cd, string tel,string sex,DateTime data, byte[] b)
+    {
+    
+       this.cn.ConnectionString = this.connectionString;
+       
+       string sql = "UPDATE PESSOA SET NOME = @nome, FOTO=@ft, NCIDADAO = @cidadao, NCONTRIBUINTE=@contribuinte, DATANASCIMENTO=@data, MORADA=@morada, COD_POSTAL=@cp, LOCALIDADE=@loc,NTELEFONE=@telf,SEXO=@sex WHERE  IDRegistado ='" + user + "' ";
+       SqlCommand cmd = new SqlCommand(sql, cn);
+       cmd.Parameters.AddWithValue("@nome", nome);
+       cmd.Parameters.AddWithValue("@cidadao", cidadao);
+       cmd.Parameters.AddWithValue("@contribuinte", nif);
+       cmd.Parameters.AddWithValue("@morada", morada);
+       cmd.Parameters.AddWithValue("@data", data);
+       cmd.Parameters.AddWithValue("@cp",cd );
+       cmd.Parameters.AddWithValue("@loc", localidade);
+       cmd.Parameters.AddWithValue("@telf", tel);
+       cmd.Parameters.AddWithValue("@sex", sex);
+       cmd.Parameters.AddWithValue("@ft", b);
+
+       cn.Open();
+       cmd.ExecuteNonQuery();
+       cmd.Dispose();
+       cn.Close();
+
+    }
+
+    public void updateUserNofoto(string user,string nome, string cidadao, string nif, string morada,string localidade,string cd, string tel,string sex,DateTime data)
+    {
+       this.cn.ConnectionString = this.connectionString;
+       
+       string sql = "UPDATE PESSOA SET NOME = @nome, NCIDADAO = @cidadao, NCONTRIBUINTE=@contribuinte, DATANASCIMENTO=@data, MORADA=@morada, COD_POSTAL=@cp, LOCALIDADE=@loc,NTELEFONE=@telf,SEXO=@sex WHERE  IDRegistado ='" + user + "' ";
+       SqlCommand cmd = new SqlCommand(sql, cn);
+       cmd.Parameters.AddWithValue("@nome", nome);
+       cmd.Parameters.AddWithValue("@cidadao", cidadao);
+       cmd.Parameters.AddWithValue("@contribuinte", nif);
+       cmd.Parameters.AddWithValue("@morada", morada);
+       cmd.Parameters.AddWithValue("@data", data);
+       cmd.Parameters.AddWithValue("@cp",cd );
+       cmd.Parameters.AddWithValue("@loc", localidade);
+       cmd.Parameters.AddWithValue("@telf", tel);
+       cmd.Parameters.AddWithValue("@sex", sex);
+       
+
+       cn.Open();
+       cmd.ExecuteNonQuery();
+       cmd.Dispose();
+       cn.Close();
+
+    
+
+    }
 
    public void inserNoticia(string titulo, string texto, byte[] b,string user)
    {

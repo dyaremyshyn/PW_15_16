@@ -42,13 +42,17 @@
             
         <div id="templatemo_left_column">
             <div id="templatemo_left_top">
-                <asp:Image ID="Image2" ImageUrl="~/images/GNR.png" runat="server" />
+               <%-- <asp:Image ID="Image2" ImageUrl="~/images/GNR.png" runat="server" />--%>
+                 <asp:ImageButton ID="ImageButton2" ImageUrl="~/images/GNR.png" runat="server" PostBackUrl="~/Cidadao/InicioCidadao.aspx" />
             </div>
-            <ul><li class="button"><a href="DadosPessoais_cliente.aspx">Dados Pessoais</a></li>
-                <li class="button"><a href ="Registar_animal.aspx">Prestar Uma queixa</a></li>
-                <li class="button"><a href="urgencia_cliente.aspx">Fazer Pedido</a></li>
-                <li class="button"><a href="marcar_consulta_cliente.aspx">Prestar Declarações</a></li>
-                <li class="button_last"><a href="visualizarhistorico.aspx">Depoimentos Recebidos</a></li>
+            <ul>
+                <li class="button"><a href="DadosPessoais.aspx">Dados Pessoais</a></li>
+                <li class="button"><a href="MinhasQueixas.aspx">Minhas Queixas</a></li>
+                <li class="button"><a href="MeusPedidos.aspx">Meus Pedidos</a></li>
+                <li class="button"><a href ="MeusDepoimentos.aspx">Meus Depoimentos</a></li>
+                <li class="button"><a href="ApresentarQueixa.aspx">Prestar Uma queixa</a></li>
+                <li class="button"><a href="ApresentarPedido.aspx">Fazer Pedido</a></li>
+                <li class="button_last"><a href="FazerDepoimento.aspx">Prestar Declarações</a></li>
                 </ul>
                 
     </div>
