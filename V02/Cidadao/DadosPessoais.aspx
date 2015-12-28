@@ -20,7 +20,7 @@
     <asp:Label ID="NIFL" runat="server" Text="NIF:"></asp:Label>
     <asp:TextBox ID="NIF" ReadOnly="true" runat="server"></asp:TextBox>
     <p></p>
-     <asp:Label ID="Datal" runat="server" Text="NIF:"></asp:Label>
+     <asp:Label ID="Datal" runat="server" Text="Data de Nascimento:"></asp:Label>
     <asp:TextBox ID="Data" ReadOnly="true" runat="server"></asp:TextBox>
     <p></p>
     <asp:Label ID="MoradaL" runat="server" Text="Morada:"></asp:Label>

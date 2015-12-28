@@ -12,15 +12,15 @@
         <asp:ListItem Value="Nao Visto">N&#227;o Visto</asp:ListItem>
     </asp:RadioButtonList>
     <asp:Label ID="Pedido" Visible="false" runat="server" Text="Pedido:"></asp:Label>
-    <asp:DropDownList ID="DropDownList1" Visible="false" runat="server"></asp:DropDownList>
+    <asp:DropDownList ID="DropDownList1" AutoPostBack="true" Visible="false" runat="server"></asp:DropDownList>
     <p></p>
     <asp:Label ID="Pedidol" runat="server" Visible="false" Text="Pedido:"></asp:Label><p></p>
-    <asp:TextBox ID="TextBox1" Visible="false" Columns="60" Rows="15" TextMode="MultiLine" runat="server"></asp:TextBox>
+    <asp:TextBox ID="TextBox1" Visible="false" Columns="60" Rows="10" TextMode="MultiLine" runat="server"></asp:TextBox>
     <p></p>
     <asp:Label ID="DataIniciol" runat="server" Visible="false" Text="Data de Inicio:"></asp:Label>
-    <asp:TextBox ID="DataInicio" TextMode="Date" Visible="false" runat="server" Width="112px"></asp:TextBox>&nbsp; &nbsp;
+    <asp:TextBox ID="DataInicio" Visible="false" runat="server" Width="112px"></asp:TextBox>&nbsp; &nbsp;
     <asp:Label ID="DataFiml" Visible="false" runat="server" Text="Data de Fim:"></asp:Label>
-    <asp:TextBox ID="DataFim"  TextMode="Date" Visible="false" runat="server"></asp:TextBox>
+    <asp:TextBox ID="DataFim"   Visible="false" runat="server"></asp:TextBox>
     <p></p>
     <asp:Label ID="EstadoNL" Visible="false" runat="server" Text="Label"></asp:Label>
     <asp:RadioButtonList RepeatDirection="Horizontal" Visible="false" ID="EstadoNovo" runat="server">

@@ -93,12 +93,26 @@ public partial class Cidadao_DadosPessoais : System.Web.UI.Page
         Cancelar.Visible = false;
         EditarDados.Visible = true;
         FileUpload1.Visible = false;
-        Fotol.Visible = true;
+        Fotol.Visible = false;
 
 
     }
     protected void Cancelar_Click(object sender, EventArgs e)
     {
+        Nome.ReadOnly = true;
+        Ncidadao.ReadOnly = true;
+        NIF.ReadOnly = true;
+        Morada.ReadOnly = true;
+        Contacto.ReadOnly = true;
+        Localidade.ReadOnly = true;
+        CodigoPostal.ReadOnly = true;
+        Sexo.Visible = true;
+        Sexorb.Visible = false;
 
+        Atualizar.Visible = false;
+        Cancelar.Visible = false;
+        EditarDados.Visible = true;
+        FileUpload1.Visible = false;
+        Fotol.Visible = false;
     }
 }

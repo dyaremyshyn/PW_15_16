@@ -59,6 +59,9 @@ public class BDRegisto
         return byt;
     }
 
+
+
+
     public string MostraImagem(string id)
     {
         string sql = "Select FOTO From Pessoa where IDRegistado='" + id + "'";
@@ -1227,10 +1230,353 @@ public class BDRegisto
    }
 
 
+   public string getIdUser(string user)
+   {
+       string sql = "Select id From PESSOA P WHERE P.IDRegistado='" + user + "'";
+       this.cn.ConnectionString = this.connectionString;
+       DataTable data = new DataTable();
+       SqlCommand cmd = new SqlCommand(sql, cn);
+       // cmd.Parameters.AddWithValue("@a", user);
+       cn.Open();
+       data.Load(cmd.ExecuteReader());
+       cn.Close();
+       string distintivo = ((int)data.Rows[0]["ID"]).ToString();
+       return distintivo;
+
+   }
+
+   public void InserQUeixa(string id,string titulo, string descricao)
+   {
+       
+       this.cn.ConnectionString = this.connectionString;
+       string strinsert = "INSERT INTO QUEIXA (IDQUEIXOSO,TITULOQUEIXA,DESCRICAOQUEIXA,ESTADOQUEIXA,SITUACAOQUEIXA,DATAQUEIXA) VALUES(@id,@titulo,@dis,@estado,@situacao,@data)";
+       SqlCommand cmd = new SqlCommand(strinsert, cn);
+       cmd.Parameters.AddWithValue("@id", Convert.ToInt32(getIdUser(id)));
+       cmd.Parameters.AddWithValue("@titulo", titulo);
+       cmd.Parameters.AddWithValue("@dis", descricao);
+       cmd.Parameters.AddWithValue("@estado", "NAO VISTO");
+       cmd.Parameters.AddWithValue("@situacao", "AGUARDAR");
+       cmd.Parameters.AddWithValue("@data", DateTime.Now);
+       cn.Open();
+       cmd.ExecuteNonQuery();
+       cmd.Dispose();
+       cn.Close();
+   }
+
+   public void InserPedido(string id, string titulo, string descricao,DateTime inicio, DateTime fim)
+   {
+
+       this.cn.ConnectionString = this.connectionString;
+       string strinsert = "INSERT INTO PEDIDO (IDQUEIXOSO,TITULOPEDIDO,DESCRISSAOPEDIDO,ESTADOPEDIDO,SITUACAOPEDIDO,DATA_INICIO_P,DATA_FIM_P) VALUES(@id,@titulo,@dis,@estado,@situacao,@data,@datafim)";
+       SqlCommand cmd = new SqlCommand(strinsert, cn);
+       cmd.Parameters.AddWithValue("@id", Convert.ToInt32(getIdUser(id)));
+       cmd.Parameters.AddWithValue("@titulo", titulo);
+       cmd.Parameters.AddWithValue("@dis", descricao);
+       cmd.Parameters.AddWithValue("@estado", "NAO VISTO");
+       cmd.Parameters.AddWithValue("@situacao", "AGUARDAR");
+       cmd.Parameters.AddWithValue("@data", inicio);
+       cmd.Parameters.AddWithValue("@datafim", fim);
+       cn.Open();
+       cmd.ExecuteNonQuery();
+       cmd.Dispose();
+       cn.Close();
+   }
+
+   public void InserDepoimento(string id, string titulo, string descricao)
+   {
+
+       this.cn.ConnectionString = this.connectionString;
+       string strinsert = "INSERT INTO DEPOIMENTO (IDQUEIXOSO,TITULODEPOIMENTO,TEXTODEPOIMENTO,SITUACAODEP,DATADEP) VALUES(@id,@titulo,@dis,@situacao,@data)";
+       SqlCommand cmd = new SqlCommand(strinsert, cn);
+       cmd.Parameters.AddWithValue("@id", Convert.ToInt32(getIdUser(id)));
+       cmd.Parameters.AddWithValue("@titulo", titulo);
+       cmd.Parameters.AddWithValue("@dis", descricao);
+       cmd.Parameters.AddWithValue("@situacao", "POR APROVAR");
+       cmd.Parameters.AddWithValue("@data", DateTime.Now);
+       cn.Open();
+       cmd.ExecuteNonQuery();
+       cmd.Dispose();
+       cn.Close();
+   }
+
+   public DataTable getQueixas(string id)
+   {
+       id = getIdUser(id);
+       string sql = "Select * From Queixa where IDQUEIXOSO='" + id + "'";
+       this.cn.ConnectionString = this.connectionString;
+       SqlCommand cmd = new SqlCommand(sql, cn);
+       DataTable data = new DataTable();
+       SqlDataAdapter da = new SqlDataAdapter();
+       cmd.CommandType = CommandType.Text;
+       cmd.Connection = cn;
+       da.SelectCommand = cmd;
+       da.Fill(data);
 
 
 
+       return data;
+   }
+   public DataTable getQueixa(string id)
+   {
+
+       string sql = "Select * From Queixa, PESSOA  where ID=IDQUEIXOSO and COD_QUEIXA='" + id + "'";
+       this.cn.ConnectionString = this.connectionString;
+       SqlCommand cmd = new SqlCommand(sql, cn);
+       DataTable data = new DataTable();
+       SqlDataAdapter da = new SqlDataAdapter();
+       cmd.CommandType = CommandType.Text;
+       cmd.Connection = cn;
+       da.SelectCommand = cmd;
+       da.Fill(data);
 
 
 
+       return data;
+   }
+
+   public DataTable getPedidos(string id)
+   {
+       id = getIdUser(id);
+       string sql = "Select * From PEDIDO where IDQUEIXOSO='" + id + "'";
+       this.cn.ConnectionString = this.connectionString;
+       SqlCommand cmd = new SqlCommand(sql, cn);
+       DataTable data = new DataTable();
+       SqlDataAdapter da = new SqlDataAdapter();
+       cmd.CommandType = CommandType.Text;
+       cmd.Connection = cn;
+       da.SelectCommand = cmd;
+       da.Fill(data);
+
+
+
+       return data;
+   }
+
+
+   public DataTable getPedido(string id)
+   {
+      
+       string sql = "Select * From PEDIDO where COD_PEDIDO='" + id + "'";
+       this.cn.ConnectionString = this.connectionString;
+       SqlCommand cmd = new SqlCommand(sql, cn);
+       DataTable data = new DataTable();
+       SqlDataAdapter da = new SqlDataAdapter();
+       cmd.CommandType = CommandType.Text;
+       cmd.Connection = cn;
+       da.SelectCommand = cmd;
+       da.Fill(data);
+
+
+
+       return data;
+   }
+
+   public DataTable getDepoimentos(string id)
+   {
+       id = getIdUser(id);
+       string sql = "Select * From DEPOIMENTO where IDQUEIXOSO='" + id + "'";
+       this.cn.ConnectionString = this.connectionString;
+       SqlCommand cmd = new SqlCommand(sql, cn);
+       DataTable data = new DataTable();
+       SqlDataAdapter da = new SqlDataAdapter();
+       cmd.CommandType = CommandType.Text;
+       cmd.Connection = cn;
+       da.SelectCommand = cmd;
+       da.Fill(data);
+
+
+
+       return data;
+   }
+
+   public DataTable getDepoimento(string id)
+   {
+
+       string sql = "Select * From DEPOIMENTO, PESSOA where id=IDQUEIXOSO AND COD_DEPOIMENTO='" + id + "'";
+       this.cn.ConnectionString = this.connectionString;
+       SqlCommand cmd = new SqlCommand(sql, cn);
+       DataTable data = new DataTable();
+       SqlDataAdapter da = new SqlDataAdapter();
+       cmd.CommandType = CommandType.Text;
+       cmd.Connection = cn;
+       da.SelectCommand = cmd;
+       da.Fill(data);
+
+
+
+       return data;
+   }
+
+   public DataTable getDepoimentosPorAprovar()
+   {
+
+       string sql = "Select * From DEPOIMENTO where SITUACAODEP like 'POR APROVAR' ";
+       this.cn.ConnectionString = this.connectionString;
+       SqlCommand cmd = new SqlCommand(sql, cn);
+       DataTable data = new DataTable();
+       SqlDataAdapter da = new SqlDataAdapter();
+       cmd.CommandType = CommandType.Text;
+       cmd.Connection = cn;
+       da.SelectCommand = cmd;
+       da.Fill(data);
+
+
+
+       return data;
+   }
+
+   public DataTable getQueixasVistas()
+   {
+
+       string sql = "Select * From QUEIXA where ESTADOQUEIXA like 'VISTO' ";
+       this.cn.ConnectionString = this.connectionString;
+       SqlCommand cmd = new SqlCommand(sql, cn);
+       DataTable data = new DataTable();
+       SqlDataAdapter da = new SqlDataAdapter();
+       cmd.CommandType = CommandType.Text;
+       cmd.Connection = cn;
+       da.SelectCommand = cmd;
+       da.Fill(data);
+
+
+
+       return data;
+   }
+
+   public DataTable getQueixasNaoVistas()
+   {
+
+       string sql = "Select * From QUEIXA where ESTADOQUEIXA like 'NAO VISTO' ";
+       this.cn.ConnectionString = this.connectionString;
+       SqlCommand cmd = new SqlCommand(sql, cn);
+       DataTable data = new DataTable();
+       SqlDataAdapter da = new SqlDataAdapter();
+       cmd.CommandType = CommandType.Text;
+       cmd.Connection = cn;
+       da.SelectCommand = cmd;
+       da.Fill(data);
+
+
+
+       return data;
+   }
+   public DataTable getQueixasFinalizadas()
+   {
+
+       string sql = "Select * From QUEIXA where ESTADOQUEIXA like 'FINALIZADA' ";
+       this.cn.ConnectionString = this.connectionString;
+       SqlCommand cmd = new SqlCommand(sql, cn);
+       DataTable data = new DataTable();
+       SqlDataAdapter da = new SqlDataAdapter();
+       cmd.CommandType = CommandType.Text;
+       cmd.Connection = cn;
+       da.SelectCommand = cmd;
+       da.Fill(data);
+
+
+
+       return data;
+   }
+   public DataTable getQueixasAtribuidas()
+   {
+
+       string sql = "Select * From QUEIXA where SITUACAOQUEIXA like 'ATRIBUIDO' ";
+       this.cn.ConnectionString = this.connectionString;
+       SqlCommand cmd = new SqlCommand(sql, cn);
+       DataTable data = new DataTable();
+       SqlDataAdapter da = new SqlDataAdapter();
+       cmd.CommandType = CommandType.Text;
+       cmd.Connection = cn;
+       da.SelectCommand = cmd;
+       da.Fill(data);
+
+
+
+       return data;
+   }
+
+   public DataTable getQueixasNaoAtribuidas()
+   {
+
+       string sql = "Select * From QUEIXA where SITUACAOQUEIXA like 'NAO ATRIBUIDO' ";
+       this.cn.ConnectionString = this.connectionString;
+       SqlCommand cmd = new SqlCommand(sql, cn);
+       DataTable data = new DataTable();
+       SqlDataAdapter da = new SqlDataAdapter();
+       cmd.CommandType = CommandType.Text;
+       cmd.Connection = cn;
+       da.SelectCommand = cmd;
+       da.Fill(data);
+
+
+
+       return data;
+   }
+
+   public void abrirProcesso(string res, string des, string titu)
+   {
+
+       string sql = "Insert Into PROCESSO, AGE_R_P,DESCRICAOPROCESSO,TITULOPROCESSO,DataAbertura Values(@agente,@descricao,@titulo,@data) ";
+       SqlCommand cmd = new SqlCommand(sql, cn);
+       cmd.Parameters.AddWithValue("@agente", Convert.ToDecimal(res));
+       cmd.Parameters.AddWithValue("@descricao", titu);
+       cmd.Parameters.AddWithValue("@titulo", des);
+       cmd.Parameters.AddWithValue("@data", DateTime.Now);
+       cn.Open();
+       cmd.ExecuteNonQuery();
+       cmd.Dispose();
+       cn.Close();
+   }
+
+   public DataTable getAgentes()
+   {
+       string sql = "Select * From Agente a, Pessoa p where a.id=p.id";
+       this.cn.ConnectionString = this.connectionString;
+       SqlCommand cmd = new SqlCommand(sql, cn);
+       DataTable data = new DataTable();
+       SqlDataAdapter da = new SqlDataAdapter();
+       cmd.CommandType = CommandType.Text;
+       cmd.Connection = cn;
+       da.SelectCommand = cmd;
+       da.Fill(data);
+
+
+
+       return data;
+   }
+
+
+   public DataTable getPedidosNaoVisto()
+   {
+       string sql = "Select * From Pedido where ESTADOPEDIDO like 'NAO VISTO'";
+       this.cn.ConnectionString = this.connectionString;
+       SqlCommand cmd = new SqlCommand(sql, cn);
+       DataTable data = new DataTable();
+       SqlDataAdapter da = new SqlDataAdapter();
+       cmd.CommandType = CommandType.Text;
+       cmd.Connection = cn;
+       da.SelectCommand = cmd;
+       da.Fill(data);
+
+
+
+       return data;
+   }
+
+   public DataTable getPedidosVisto()
+   {
+       string sql = "Select * From Pedido where ESTADOPEDIDO like 'VISTO'";
+       this.cn.ConnectionString = this.connectionString;
+       SqlCommand cmd = new SqlCommand(sql, cn);
+       DataTable data = new DataTable();
+       SqlDataAdapter da = new SqlDataAdapter();
+       cmd.CommandType = CommandType.Text;
+       cmd.Connection = cn;
+       da.SelectCommand = cmd;
+       da.Fill(data);
+
+
+
+       return data;
+   }
 }

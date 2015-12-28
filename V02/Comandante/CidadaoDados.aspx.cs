@@ -8,14 +8,19 @@ using System.Web.UI.WebControls;
 
 public partial class Comandante_CidadaoDados : System.Web.UI.Page
 {
+   
     protected void Page_Load(object sender, EventArgs e)
     {
         BDRegisto bd = new BDRegisto();
         ListItem it = new ListItem("Selecione");
         if (!IsPostBack)
         {
+            
+            
+            
             DataTable dados = bd.getCidadaoPorId(Request.QueryString["id"]);
             Nome.Text =(string)dados.Rows[0]["NOME"];
+           
             Ncidadao.Text = Convert.ToString(((decimal)dados.Rows[0]["NCIDADAO"]));
             NIF.Text = Convert.ToString(((decimal)dados.Rows[0]["NCONTRIBUINTE"]));
             Morada.Text = (string)dados.Rows[0]["MORADA"];
@@ -32,6 +37,12 @@ public partial class Comandante_CidadaoDados : System.Web.UI.Page
 
     protected void VoltarAtras_Click(object sender, ImageClickEventArgs e)
     {
-        Response.Redirect("Cidadoes.aspx");
+        
+     
+            Response.Redirect("Cidadoes.aspx");
+      
+        
+       
+     
     }
 }
