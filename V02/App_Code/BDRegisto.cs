@@ -1513,12 +1513,12 @@ public class BDRegisto
        return data;
    }
 
-   public void abrirProcesso(string res, string des, string titu)
+   public void abrirProcesso(string destintivo, string des, string titu)
    {
-
-       string sql = "Insert Into PROCESSO, AGE_R_P,DESCRICAOPROCESSO,TITULOPROCESSO,DataAbertura Values(@agente,@descricao,@titulo,@data) ";
+       this.cn.ConnectionString = this.connectionString;
+       string sql = "Insert Into PROCESSO (AGE_R_P,DESCRICAOPROCESSO,TITULOPROCESSO,DataAbertura) Values(@AGENTE,@descricao,@titulo,@data) ";
        SqlCommand cmd = new SqlCommand(sql, cn);
-       cmd.Parameters.AddWithValue("@agente", Convert.ToDecimal(res));
+       cmd.Parameters.AddWithValue("@AGENTE", Convert.ToDecimal(destintivo));
        cmd.Parameters.AddWithValue("@descricao", titu);
        cmd.Parameters.AddWithValue("@titulo", des);
        cmd.Parameters.AddWithValue("@data", DateTime.Now);

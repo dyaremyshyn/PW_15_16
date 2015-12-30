@@ -16,7 +16,7 @@
         <asp:ListItem Value="FINALIZADA">Finalizada</asp:ListItem>
     </asp:RadioButtonList>
     <asp:Label ID="QueixaL" runat="server" Visible="false" Text="Queixa:"></asp:Label>
-    <asp:DropDownList ID="QueixaDD"  Visible="false" runat="server"></asp:DropDownList>
+    <asp:DropDownList ID="QueixaDD" AutoPostBack="true"  Visible="false" runat="server"></asp:DropDownList>
     <p></p>
     <asp:Label ID="AutorL" Visible="false" runat="server" Text="Autor:"></asp:Label>
     <asp:HyperLink ID="Autor" Target="_blank" runat="server" NavigateUrl="~/Comandante/CidadaoDados.aspx"></asp:HyperLink>
