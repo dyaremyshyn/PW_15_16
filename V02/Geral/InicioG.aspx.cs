@@ -23,7 +23,7 @@ public partial class Geral_Default : System.Web.UI.Page
         else
         {
             if (Roles.IsUserInRole(nome, "Agente"))
-                Response.Redirect("~/Cidadao/InicioCidadao.aspx");
+                Response.Redirect("~/Agente/Inicio.aspx");
             else
              Response.Redirect("~/Cidadao/InicioCidadao.aspx");
           
