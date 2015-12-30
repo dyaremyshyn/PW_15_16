@@ -1,7 +1,5 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Agente/Policia.master" AutoEventWireup="true" CodeFile="DadosPessoais.aspx.cs" Inherits="Agente_DadosPessoais" %>
 
-<%@ Register assembly="AjaxControlToolkit" namespace="AjaxControlToolkit" tagprefix="cc1" %>
-
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder3" Runat="Server">
@@ -42,9 +40,9 @@
     &nbsp&nbsp&nbsp&nbsp
     <asp:Label ID="Label8" runat="server" Text="Sexo: "></asp:Label>
     <asp:TextBox ID="txtSexo" ReadOnly="true" runat="server"></asp:TextBox>
-    <asp:RadioButtonList ID="RadioButtonList1" runat="server" AutoPostBack="True">
-        <asp:ListItem Selected="True">Masculino</asp:ListItem>
-        <asp:ListItem>Feminino</asp:ListItem>
+    <asp:RadioButtonList ID="rbSexo" Visible="false" runat="server" AutoPostBack="True">
+        <asp:ListItem Value="MASCULINO">Masculino</asp:ListItem>
+        <asp:ListItem Value="FEMININO">Feminino</asp:ListItem>
     </asp:RadioButtonList>
     <p></p>
     <asp:Label ID="Label9" runat="server" Text="Cód. Postal: "></asp:Label>

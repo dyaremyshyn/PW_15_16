@@ -53,7 +53,7 @@
                 <li class="button"><a href="PedidosRecebidos.aspx">Pedidos Recebidos</a></li>
                 <li class="button"><a href="QueixasRecebidas.aspx">Queixas Recebidas</a></li>
                 <li class="button"><a href="Processos.aspx">Processos</a></li>
-                <li class="button_last"><a href="DepoimentosRecebidos.aspx">Depoiamentos Recebidos</a></li>
+                <li class="button_last"><a href="DepoimentosRecebidos.aspx">Depoimentos Recebidos</a></li>
                 </ul>
                 
     </div>
