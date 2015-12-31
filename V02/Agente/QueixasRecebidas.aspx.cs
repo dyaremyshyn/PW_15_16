@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Web;
+using System.Web.Security;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -24,11 +25,7 @@ public partial class Agente_QueixasRecebidas : System.Web.UI.Page
             QueixaDD.DataBind();
             QueixaDD.Items.Insert(0, aux);
             ultimaqueixa = QueixaDD.SelectedValue;
-            Agente.DataSource = bd.getAgentes();
-            Agente.DataTextField = "NOME";
-            Agente.DataValueField = "DISTINTIVO";
-            Agente.DataBind();
-            Agente.Items.Insert(0, aux);
+          
             Processo.DataSource = bd.getProcessos();
             Processo.DataTextField = "TITULOPROCESSO";
             Processo.DataValueField = "IDPROCESSO";
@@ -57,8 +54,7 @@ public partial class Agente_QueixasRecebidas : System.Web.UI.Page
                     Nomeprocessol.Visible = true;
                     Processot.Visible = true;
                     Processo.Visible = false;
-                    Agentel.Visible = true;
-                    Agente.Visible = true;
+                  
                 }
                 else
                 {
@@ -67,16 +63,14 @@ public partial class Agente_QueixasRecebidas : System.Web.UI.Page
                         Nomeprocessol.Visible = true;
                         Processot.Visible = false;
                         Processo.Visible = true;
-                        Agentel.Visible = false;
-                        Agente.Visible = false;
+                        
                     }
                     else
                     {
                         Nomeprocessol.Visible = true;
                         Processot.Visible = false;
                         Processo.Visible = false;
-                        Agentel.Visible = false;
-                        Agente.Visible = false;
+                        
                     }
                 }
                
@@ -90,8 +84,7 @@ public partial class Agente_QueixasRecebidas : System.Web.UI.Page
                 Nomeprocessol.Visible = false;
                 Processot.Visible = false;
                 Processo.Visible = false;
-                Agentel.Visible = false;
-                Agente.Visible = false;
+               
             }
 
            
@@ -108,13 +101,12 @@ public partial class Agente_QueixasRecebidas : System.Web.UI.Page
         BDRegisto bd = new BDRegisto();
         if (RadioButtonList1.SelectedIndex == 0)
         {
-            if (Agente.SelectedIndex != 0)
-            {
+            
                 int processo;
-                processo = bd.abrirProcesso(Agente.SelectedValue, "", Processot.Text);
+                processo = bd.abrirProcesso(bd.getDisintivoUser(Membership.GetUser().ProviderUserKey.ToString()), "", Processot.Text);
                 bd.updateQueixaParaVista(QueixaDD.SelectedValue);
                 bd.addQueixaProcesso(QueixaDD.SelectedValue, processo.ToString());
-            }
+            
         }
         else
         {
@@ -125,7 +117,7 @@ public partial class Agente_QueixasRecebidas : System.Web.UI.Page
             }
             else
             {
-                Agente.SelectedIndex = 0;
+               
                 Processo.SelectedIndex = 0;
                 RadioButtonList1.SelectedIndex = -1;
                 QueixaDD.SelectedIndex = 0;
