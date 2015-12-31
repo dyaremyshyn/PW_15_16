@@ -1649,7 +1649,7 @@ public class BDRegisto
    {
        this.cn.ConnectionString = this.connectionString;
 
-       string sql = "UPDATE DEPOIMENTO SET IDPROCESSO = '"+processo+"' Where COD_DEPOIMENTO='" + codDep + "'";
+       string sql = "UPDATE DEPOIMENTO SET IDPROCESSO = '" + processo + "', SITUACAODEP='APROVADO' Where COD_DEPOIMENTO='" + codDep + "'";
        SqlCommand cmd = new SqlCommand(sql, cn);
 
 
