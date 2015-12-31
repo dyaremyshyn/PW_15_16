@@ -17,18 +17,21 @@ public partial class Agente_DadosPessoais : System.Web.UI.Page
         BDRegisto bd = new BDRegisto();
         if (!IsPostBack)
         {
-            DataTable dados = bd.getUser(Membership.GetUser().ProviderUserKey.ToString());
-            txtNomeAgente.Text = (string)dados.Rows[0]["NOME"];
-
-            txtIDAgente.Text = Convert.ToString(((decimal)dados.Rows[0]["NCIDADAO"]));
-            txtContribuinte.Text = Convert.ToString(((decimal)dados.Rows[0]["NCONTRIBUINTE"]));
-            txtMorada.Text = (string)dados.Rows[0]["MORADA"];
-            txtContacto.Text = (string)dados.Rows[0]["NTELEFONE"];
-            txtLocalidade.Text = (string)dados.Rows[0]["LOCALIDADE"];
-            txtCodPostal.Text = (string)dados.Rows[0]["COD_POSTAL"];
-            txtDataNascimento.Text = ((DateTime)dados.Rows[0]["DATANASCIMENTO"]).ToString("dd/MM/yyyy");
-            txtSexo.Text = (string)dados.Rows[0]["SEXO"];
-            Foto.ImageUrl = bd.carregaFotoUser(Membership.GetUser().ProviderUserKey.ToString());
+            
+            if (!IsPostBack)
+            {
+                DataTable dados = bd.getUser(Membership.GetUser().ProviderUserKey.ToString());
+                Nome.Text = (string)dados.Rows[0]["NOME"];
+                Ncidadao.Text = Convert.ToString(((decimal)dados.Rows[0]["NCIDADAO"]));
+                NIF.Text = Convert.ToString(((decimal)dados.Rows[0]["NCONTRIBUINTE"]));
+                Morada.Text = (string)dados.Rows[0]["MORADA"];
+                Contacto.Text = (string)dados.Rows[0]["NTELEFONE"];
+                Localidade.Text = (string)dados.Rows[0]["LOCALIDADE"];
+                CodigoPostal.Text = (string)dados.Rows[0]["COD_POSTAL"];
+                Data.Text = ((DateTime)dados.Rows[0]["DATANASCIMENTO"]).ToString("dd/MM/yyyy");
+                Sexo.Text = (string)dados.Rows[0]["SEXO"];
+                Foto.ImageUrl = bd.carregaFotoUser(Membership.GetUser().ProviderUserKey.ToString());
+            }
         }
 
 
@@ -41,32 +44,28 @@ public partial class Agente_DadosPessoais : System.Web.UI.Page
 
     protected void EditarDados_Click(object sender, EventArgs e)
     {
-        txtNomeAgente.ReadOnly = false;
-        txtIDAgente.ReadOnly = false;
-        txtContribuinte.ReadOnly = false;
-        txtMorada.ReadOnly = false;
-        txtContacto.ReadOnly = false;
-        txtLocalidade.ReadOnly = false;
-        txtCodPostal.ReadOnly = false;
-        txtSexo.ReadOnly = false;
-
-        rbSexo.Visible = true;
-
-        if (txtSexo.Text.ToCharArray()[0] == 'M')
+        Nome.ReadOnly = false;
+        Ncidadao.ReadOnly = false;
+        NIF.ReadOnly = false;
+        Morada.ReadOnly = false;
+        Contacto.ReadOnly = false;
+        Localidade.ReadOnly = false;
+        CodigoPostal.ReadOnly = false;
+        Sexo.Visible = false;
+        Sexorb.Visible = true;
+        if (Sexo.Text.ToCharArray()[0] == 'M')
         {
-            rbSexo.SelectedIndex = 0;
+            Sexorb.SelectedIndex = 0;
         }
         else
         {
-            rbSexo.SelectedIndex = 1;
+            Sexorb.SelectedIndex = 1;
         }
-
         Atualizar.Visible = true;
         Cancelar.Visible = true;
         EditarDados.Visible = false;
         FileUpload1.Visible = true;
-        lblFoto.Visible = true;
-
+        Fotol.Visible = true;
     }
     protected void Atualizar_Click(object sender, EventArgs e)
     {
@@ -75,58 +74,60 @@ public partial class Agente_DadosPessoais : System.Web.UI.Page
         Byte[] bytes = bd.carregaImagem(fs);
         if (FileUpload1.FileBytes.Length > 0)
         {
-            bd.updateUserWithFoto(Membership.GetUser().ProviderUserKey.ToString(), txtNomeAgente.Text, txtIDAgente.Text, txtContribuinte.Text, txtMorada.Text, txtLocalidade.Text, txtCodPostal.Text, txtContacto.Text, rbSexo.SelectedValue, Convert.ToDateTime(txtDataNascimento.Text), bytes);
+            bd.updateUserWithFoto(Membership.GetUser().ProviderUserKey.ToString(), Nome.Text, Ncidadao.Text, NIF.Text, Morada.Text, Localidade.Text, CodigoPostal.Text, Contacto.Text, Sexorb.SelectedValue, Convert.ToDateTime(Data.Text), bytes);
         }
         else
         {
-            bd.updateUserNofoto(Membership.GetUser().ProviderUserKey.ToString(), txtNomeAgente.Text, txtIDAgente.Text, txtContribuinte.Text, txtMorada.Text, txtLocalidade.Text, txtCodPostal.Text, txtContacto.Text, rbSexo.SelectedValue, Convert.ToDateTime(txtDataNascimento.Text));
+            bd.updateUserNofoto(Membership.GetUser().ProviderUserKey.ToString(), Nome.Text, Ncidadao.Text, NIF.Text, Morada.Text, Localidade.Text, CodigoPostal.Text, Contacto.Text, Sexorb.SelectedValue, Convert.ToDateTime(Data.Text));
         }
 
 
         DataTable dados = bd.getUser(Membership.GetUser().ProviderUserKey.ToString());
-        txtNomeAgente.Text = (string)dados.Rows[0]["NOME"];
-        txtIDAgente.Text = Convert.ToString(((decimal)dados.Rows[0]["NCIDADAO"]));
-        txtContribuinte.Text = Convert.ToString(((decimal)dados.Rows[0]["NCONTRIBUINTE"]));
-        txtMorada.Text = (string)dados.Rows[0]["MORADA"];
-        txtContacto.Text = (string)dados.Rows[0]["NTELEFONE"];
-        txtLocalidade.Text = (string)dados.Rows[0]["LOCALIDADE"];
-        txtCodPostal.Text = (string)dados.Rows[0]["COD_POSTAL"];
-        txtDataNascimento.Text = ((DateTime)dados.Rows[0]["DATANASCIMENTO"]).ToString("dd/MM/yyyy");
-        txtSexo.Text = (string)dados.Rows[0]["SEXO"];
+        Nome.Text = (string)dados.Rows[0]["NOME"];
+        Ncidadao.Text = Convert.ToString(((decimal)dados.Rows[0]["NCIDADAO"]));
+        NIF.Text = Convert.ToString(((decimal)dados.Rows[0]["NCONTRIBUINTE"]));
+        Morada.Text = (string)dados.Rows[0]["MORADA"];
+        Contacto.Text = (string)dados.Rows[0]["NTELEFONE"];
+        Localidade.Text = (string)dados.Rows[0]["LOCALIDADE"];
+        CodigoPostal.Text = (string)dados.Rows[0]["COD_POSTAL"];
+        Data.Text = ((DateTime)dados.Rows[0]["DATANASCIMENTO"]).ToString("dd/MM/yyyy");
+        Sexo.Text = (string)dados.Rows[0]["SEXO"];
         Foto.ImageUrl = bd.carregaFotoUser(Membership.GetUser().ProviderUserKey.ToString());
 
-        txtNomeAgente.ReadOnly = true;
-        txtIDAgente.ReadOnly = true;
-        txtContribuinte.ReadOnly = true;
-        txtMorada.ReadOnly = true;
-        txtContacto.ReadOnly = true;
-        txtLocalidade.ReadOnly = true;
-        txtCodPostal.ReadOnly = true;
-        txtSexo.Visible = true;
-        rbSexo.Visible = false;
+        Nome.ReadOnly = true;
+        Ncidadao.ReadOnly = true;
+        NIF.ReadOnly = true;
+        Morada.ReadOnly = true;
+        Contacto.ReadOnly = true;
+        Localidade.ReadOnly = true;
+        CodigoPostal.ReadOnly = true;
+        Sexo.Visible = true;
+        Sexorb.Visible = false;
 
         Atualizar.Visible = false;
         Cancelar.Visible = false;
         EditarDados.Visible = true;
         FileUpload1.Visible = false;
-        lblFoto.Visible = false;
+        Fotol.Visible = false;
+
+
     }
     protected void Cancelar_Click(object sender, EventArgs e)
     {
-        txtNomeAgente.ReadOnly = true;
-        txtIDAgente.ReadOnly = true;
-        txtContribuinte.ReadOnly = true;
-        txtMorada.ReadOnly = true;
-        txtContacto.ReadOnly = true;
-        txtLocalidade.ReadOnly = true;
-        txtCodPostal.ReadOnly = true;
-        txtSexo.Visible = true;
-        rbSexo.Visible = false;
+        Nome.ReadOnly = true;
+        Ncidadao.ReadOnly = true;
+        NIF.ReadOnly = true;
+        Morada.ReadOnly = true;
+        Contacto.ReadOnly = true;
+        Localidade.ReadOnly = true;
+        CodigoPostal.ReadOnly = true;
+        Sexo.Visible = true;
+        Sexorb.Visible = false;
 
         Atualizar.Visible = false;
         Cancelar.Visible = false;
         EditarDados.Visible = true;
         FileUpload1.Visible = false;
-        lblFoto.Visible = false;
+        Fotol.Visible = false;
     }
 }
