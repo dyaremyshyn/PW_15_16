@@ -42,6 +42,12 @@
         <asp:ListItem Value="FEMININO">Feminino</asp:ListItem>
     </asp:RadioButtonList>
     <p></p>
+    <asp:Label ID="Distintivol" runat="server" Text="Distintivo:"></asp:Label>
+    <asp:TextBox ID="Distintivo" ReadOnly="true" runat="server"></asp:TextBox>
+    <p></p>
+    <asp:Label ID="Armasl" runat="server" Text="Armas:"></asp:Label>
+    <asp:DropDownList ID="Armas" runat="server"></asp:DropDownList>
+    <p></p>
     <asp:Button ID="EditarDados" runat="server" Text="Editar Dados:" OnClick="EditarDados_Click" />
     <asp:Button ID="Atualizar" Visible="false" runat="server" Text="Atualizar" OnClick="Atualizar_Click" />&nbsp;
     <asp:Button ID="Cancelar" Visible="false" runat="server" Text="Cancelar" OnClick="Cancelar_Click" />

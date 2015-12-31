@@ -31,6 +31,12 @@ public partial class Agente_DadosPessoais : System.Web.UI.Page
                 Data.Text = ((DateTime)dados.Rows[0]["DATANASCIMENTO"]).ToString("dd/MM/yyyy");
                 Sexo.Text = (string)dados.Rows[0]["SEXO"];
                 Foto.ImageUrl = bd.carregaFotoUser(Membership.GetUser().ProviderUserKey.ToString());
+                Distintivo.Text = bd.getDisintivoUser(Membership.GetUser().ProviderUserKey.ToString());
+                Armas.DataSource = bd.getArmasAgente(Distintivo.Text);
+                Armas.DataTextField = "MODELO";
+                Armas.DataValueField = "NARMA";
+                Armas.DataBind();
+               
             }
         }
 
