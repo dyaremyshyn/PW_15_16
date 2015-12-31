@@ -1513,19 +1513,22 @@ public class BDRegisto
        return data;
    }
 
-   public void abrirProcesso(string destintivo, string des, string titu)
+   public int abrirProcesso(string destintivo, string des, string titu)
    {
        this.cn.ConnectionString = this.connectionString;
-       string sql = "Insert Into PROCESSO (AGE_R_P,DESCRICAOPROCESSO,TITULOPROCESSO,DataAbertura) Values(@AGENTE,@descricao,@titulo,@data) ";
+       string sql = "Insert Into PROCESSO (AGE_R_P,DESCRICAOPROCESSO,TITULOPROCESSO,DataAbertura) Values(@AGENTE,@descricao,@titulo,@data); SELECT CAST(scope_identity() AS int);";
        SqlCommand cmd = new SqlCommand(sql, cn);
        cmd.Parameters.AddWithValue("@AGENTE", Convert.ToDecimal(destintivo));
-       cmd.Parameters.AddWithValue("@descricao", titu);
-       cmd.Parameters.AddWithValue("@titulo", des);
+       cmd.Parameters.AddWithValue("@descricao", des);
+       cmd.Parameters.AddWithValue("@titulo", titu);
        cmd.Parameters.AddWithValue("@data", DateTime.Now);
        cn.Open();
-       cmd.ExecuteNonQuery();
+       int idprocesso = (int)cmd.ExecuteScalar();
+       //cmd.ExecuteNonQuery();
        cmd.Dispose();
        cn.Close();
+       return idprocesso;
+     
    }
 
    public DataTable getAgentes()
@@ -1579,4 +1582,181 @@ public class BDRegisto
 
        return data;
    }
+
+   public int getNQueixasNaoVistas()
+   {
+       this.cn.ConnectionString = this.connectionString;
+       DataTable data = new DataTable();
+       string sql = "SELECT count(*) FROM QUEIXA WHERE ESTADOQUEIXA like 'NAO VISTO'";
+       SqlCommand cmd = new SqlCommand(sql, cn);
+       cn.Open();
+       int n = Convert.ToInt32(cmd.ExecuteScalar());
+       cn.Close();
+       return n;
+   }
+
+
+   public DataTable getProcessos()
+   {
+       string sql = "Select * From PROCESSO ";
+       this.cn.ConnectionString = this.connectionString;
+       SqlCommand cmd = new SqlCommand(sql, cn);
+       DataTable data = new DataTable();
+       SqlDataAdapter da = new SqlDataAdapter();
+       cmd.CommandType = CommandType.Text;
+       cmd.Connection = cn;
+       da.SelectCommand = cmd;
+       da.Fill(data);
+
+
+
+       return data;
+   }
+
+   public void updateQueixaParaVista(string codqueixa)
+   {
+       
+
+        this.cn.ConnectionString = this.connectionString;
+        
+        string sql = "UPDATE QUEIXA SET ESTADOQUEIXA = 'VISTO', SITUACAOQUEIXA = 'PROCESSO ABERTO' Where COD_QUEIXA='"+codqueixa+"'";
+        SqlCommand cmd = new SqlCommand(sql, cn);
+        
+
+
+        cn.Open();
+        cmd.ExecuteNonQuery();
+        cmd.Dispose();
+        cn.Close();
+    
+   }
+
+   public void addQueixaProcesso(string queixa, string processo)
+   {
+       this.cn.ConnectionString = this.connectionString;
+       string sql = "Insert Into QUEIXA_PROCESSO (COD_QUEIXA, IDPROCESSO) Values(@QUEIXA,@PROCESSO) ";
+       SqlCommand cmd = new SqlCommand(sql, cn);
+       cmd.Parameters.AddWithValue("@QUEIXA", Convert.ToInt32(queixa));
+       cmd.Parameters.AddWithValue("@PROCESSO", Convert.ToInt32(processo));
+       
+       cn.Open();
+       cmd.ExecuteNonQuery();
+       cmd.Dispose();
+       cn.Close();
+   }
+
+   public void updateDepoimento(string processo, string codDep)
+   {
+       this.cn.ConnectionString = this.connectionString;
+
+       string sql = "UPDATE DEPOIMENTO SET IDPROCESSO = '"+processo+"' Where COD_DEPOIMENTO='" + codDep + "'";
+       SqlCommand cmd = new SqlCommand(sql, cn);
+
+
+
+       cn.Open();
+       cmd.ExecuteNonQuery();
+       cmd.Dispose();
+       cn.Close();
+   }
+
+
+   public DataTable getProcessoQueixa(string queixa)
+   {
+       string sql = "Select * From PROCESSO P, QUEIXA_PROCESSO QP, QUEIXA Q Where P.IDPROCESSO=QP.IDPROCESSO AND QP.COD_QUEIXA=Q.COD_QUEIXA AND Q.COD_QUEIXA ='"+queixa+"' ";
+       this.cn.ConnectionString = this.connectionString;
+       SqlCommand cmd = new SqlCommand(sql, cn);
+       DataTable data = new DataTable();
+       SqlDataAdapter da = new SqlDataAdapter();
+       cmd.CommandType = CommandType.Text;
+       cmd.Connection = cn;
+       da.SelectCommand = cmd;
+       da.Fill(data);
+
+
+
+       return data;
+   }
+
+    public string getNomeAgente(string dist){
+       string sql = "Select * From AGENTE A , PESSOA P Where P.ID=A.ID AND A.DISTINTIVO ='"+dist+"' ";
+       this.cn.ConnectionString = this.connectionString;
+       SqlCommand cmd = new SqlCommand(sql, cn);
+       DataTable data = new DataTable();
+       SqlDataAdapter da = new SqlDataAdapter();
+       cmd.CommandType = CommandType.Text;
+       cmd.Connection = cn;
+       da.SelectCommand = cmd;
+       da.Fill(data);
+
+       string nome = (string)data.Rows[0]["NOME"];
+
+       return nome;
+    }
+
+    public DataTable getQueixaProcesso(string processo)
+    {
+        string sql = "Select * From PROCESSO P, QUEIXA_PROCESSO QP, QUEIXA Q Where P.IDPROCESSO=QP.IDPROCESSO AND QP.COD_QUEIXA=Q.COD_QUEIXA AND P.IDPROCESSO ='" + processo + "' ";
+        this.cn.ConnectionString = this.connectionString;
+        SqlCommand cmd = new SqlCommand(sql, cn);
+        DataTable data = new DataTable();
+        SqlDataAdapter da = new SqlDataAdapter();
+        cmd.CommandType = CommandType.Text;
+        cmd.Connection = cn;
+        da.SelectCommand = cmd;
+        da.Fill(data);
+
+
+
+        return data;
+    }
+
+    public DataTable getProcesso(string process)
+    {
+        string sql = "Select * From PROCESSO P WHERE IDPROCESSO ='" + process + "'";
+        this.cn.ConnectionString = this.connectionString;
+        SqlCommand cmd = new SqlCommand(sql, cn);
+        DataTable data = new DataTable();
+        SqlDataAdapter da = new SqlDataAdapter();
+        cmd.CommandType = CommandType.Text;
+        cmd.Connection = cn;
+        da.SelectCommand = cmd;
+        da.Fill(data);
+
+
+
+        return data;
+    }
+
+    public DataTable getDepoimentoProcesso(string process)
+    {
+        string sql = "Select * From DEPOIMENTO P WHERE IDPROCESSO ='" + process + "'";
+        this.cn.ConnectionString = this.connectionString;
+        SqlCommand cmd = new SqlCommand(sql, cn);
+        DataTable data = new DataTable();
+        SqlDataAdapter da = new SqlDataAdapter();
+        cmd.CommandType = CommandType.Text;
+        cmd.Connection = cn;
+        da.SelectCommand = cmd;
+        da.Fill(data);
+
+
+
+        return data;
+    }
+
+    public void actualizarProcesso(string processo, string info)
+    {
+        this.cn.ConnectionString = this.connectionString;
+
+        string sql = "UPDATE PROCESSO SET DESCRICAOPROCESSO = '" + info + "' Where IDPROCESSO='" + processo + "'";
+        SqlCommand cmd = new SqlCommand(sql, cn);
+
+
+
+        cn.Open();
+        cmd.ExecuteNonQuery();
+        cmd.Dispose();
+        cn.Close();
+    }
 }

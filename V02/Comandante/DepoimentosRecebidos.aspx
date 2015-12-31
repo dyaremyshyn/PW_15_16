@@ -20,6 +20,6 @@
     <asp:Label ID="ProcessoA" Visible="false" runat="server" Text="Processo:"></asp:Label>
     <asp:DropDownList ID="Processo" Visible="false" runat="server"></asp:DropDownList>
     <p></p>
-    <asp:Button ID="Confirmar" runat="server" Text="Confirmar" />
+    <asp:Button ID="Confirmar" runat="server" Text="Confirmar" OnClick="Confirmar_Click" />
 </asp:Content>
 
