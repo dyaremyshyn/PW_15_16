@@ -7,7 +7,7 @@
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder4" Runat="Server">
     <h1> <asp:Label ID="Label2" runat="server" Text="Processos"></asp:Label> </h1>
     <p></p>
-    <asp:CheckBox ID="MeusProcessos" Text="Meus Processos" runat="server" />
+    <asp:CheckBox ID="MeusProcessos" AutoPostBack="true" Text="Meus Processos" runat="server" />
     <p></p>
     <asp:Label ID="ProcessoL" runat="server" Text="Processo:"></asp:Label>
     <asp:DropDownList ID="Processo" AutoPostBack="true" runat="server"></asp:DropDownList>
@@ -23,8 +23,15 @@
     <p></p>
     <asp:Label ID="DescricaoP" runat="server" Text="Descrição do Processo:"></asp:Label><p></p>
     <asp:TextBox ID="Descp" ReadOnly="true"  TextMode="MultiLine"  Columns="60" Rows="5" runat="server"></asp:TextBox>
-    <p></p>
+    <asp:CheckBox ID="EditarInfo" Visible="false" AutoPostBack="true" Text="Editar Informação" runat="server" />
+     <p></p>
     <asp:Label ID="DatIl" runat="server" Text="Data de Inicio:"></asp:Label>
     <asp:TextBox ID="data" ReadOnly="true" runat="server"></asp:TextBox>
+    <p></p>
+    <asp:CheckBox ID="Encerrar" Visible="false" runat="server" Text="Encerrar Processo" />
+    <p>
+        <asp:Button ID="ActualizarProcesso" Visible="false" runat="server" Text="Actualizar" />
+    </p>
+ 
 </asp:Content>
 

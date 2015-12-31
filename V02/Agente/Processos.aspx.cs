@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Web;
+using System.Web.Security;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
 public partial class Agente_Processos : System.Web.UI.Page
 {
+    static bool prochecked;
     protected void Page_Load(object sender, EventArgs e)
     {
         ListItem it = new ListItem("Selecione");
@@ -15,18 +17,61 @@ public partial class Agente_Processos : System.Web.UI.Page
         if (!IsPostBack)
         {
 
-            if (MeusProcessos.Checked = false)
-            {
+            
                 Processo.DataSource = bd.getProcessos();
                 Processo.DataTextField = "TITULOPROCESSO";
                 Processo.DataValueField = "IDPROCESSO";
                 Processo.DataBind();
                 Processo.Items.Insert(0, it);
-            }
-            else { }
+                Encerrar.Visible = true;
+                ActualizarProcesso.Visible = true;
+                prochecked = false;
+            
         }
         else
         {
+
+
+            if (MeusProcessos.Checked != prochecked)
+                {
+                    if (MeusProcessos.Checked == true)
+                    {
+                        Processo.DataSource = bd.getProcessoAgente(Membership.GetUser().ProviderUserKey.ToString());
+                        Processo.DataTextField = "TITULOPROCESSO";
+                        Processo.DataValueField = "IDPROCESSO";
+                        Processo.DataBind();
+                        Processo.Items.Insert(0, it);
+                        Encerrar.Visible = true;
+                        ActualizarProcesso.Visible = true;
+                        prochecked = true;
+                        Res.Text = "";
+                        Queixa.SelectedIndex = 0;
+                        Depoimentos.SelectedIndex = 0;
+                        Descp.Text = "";
+                        data.Text = "";
+                        EditarInfo.Visible = true;
+                    }
+                    else
+                    {
+                        Processo.DataSource = bd.getProcessos();
+                        Processo.DataTextField = "TITULOPROCESSO";
+                        Processo.DataValueField = "IDPROCESSO";
+                        Processo.DataBind();
+                        Processo.Items.Insert(0, it);
+                        Encerrar.Visible = false;
+                        ActualizarProcesso.Visible = false;
+                        prochecked = false;
+                        Res.Text = "";
+                        Queixa.SelectedIndex = 0;
+                        Depoimentos.SelectedIndex = 0;
+                        Descp.Text = "";
+                        data.Text = "";
+                        EditarInfo.Checked=false;
+                    }
+                }
+            
+
+
             if (Processo.SelectedIndex != 0)
             {
                 DataTable Data = bd.getProcesso(Processo.SelectedValue);
@@ -56,7 +101,14 @@ public partial class Agente_Processos : System.Web.UI.Page
                 VerDep.Text = "Ver Depoimento" + Depoimentos.SelectedItem.Text;
                 VerDep.NavigateUrl = "~/Comandante/DepoimentosRecebidos.aspx" + "?" + "ID=" + Depoimentos.SelectedValue;
 
-
+                if (EditarInfo.Checked == true)
+                {
+                    Descp.ReadOnly = false;
+                }
+                else
+                {
+                    Descp.ReadOnly = true;
+                }
             }
         }
     }

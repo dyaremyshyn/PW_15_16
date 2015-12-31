@@ -1759,4 +1759,22 @@ public class BDRegisto
         cmd.Dispose();
         cn.Close();
     }
+
+    public DataTable getProcessoAgente(string agente){
+        agente = getDisintivoUser(agente);
+
+        string sql = "Select * From PROCESSO P WHERE AGE_R_P ='" + agente + "'";
+        this.cn.ConnectionString = this.connectionString;
+        SqlCommand cmd = new SqlCommand(sql, cn);
+        DataTable data = new DataTable();
+        SqlDataAdapter da = new SqlDataAdapter();
+        cmd.CommandType = CommandType.Text;
+        cmd.Connection = cn;
+        da.SelectCommand = cmd;
+        da.Fill(data);
+
+
+
+        return data;
+    }
 }
