@@ -22,6 +22,8 @@ public partial class Agente_ConsultarHorario : System.Web.UI.Page
         gvHorario.DataSource = bd.getHorarioLaboral(txtInicio.Text, txtFim.Text, Membership.GetUser().ProviderUserKey.ToString());
         gvHorario.DataBind();
 
+        gvOperacoes.DataSource = bd.getHorarioOperacoes(txtInicio.Text, txtFim.Text, Membership.GetUser().ProviderUserKey.ToString());
+        gvOperacoes.DataBind();
 
     }
 }
