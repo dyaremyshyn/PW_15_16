@@ -30,7 +30,8 @@
     <asp:Label ID="Agentel" Visible="false" runat="server" Text="Agente Responsavel:"></asp:Label>
     <asp:DropDownList ID="Agente" Visible="false" runat="server"></asp:DropDownList>
     <p></p>
-    <asp:Button ID="Aprovar"  runat="server" Text="Aprovar" OnClick="Aprovar_Click" />&nbsp;
+    <asp:Button ID="Aprovar"  runat="server" Text="Aprovar" OnClick="Aprovar_Click" />
+      <asp:Button ID="Button1"  runat="server" Text="Aprovar" OnClick="Aprovar_Click" />&nbsp;
     <asp:Button ID="Encrever" runat="server" Text="Escrever Mensagem" OnClick="Encrever_Click" />
      <p></p>
     <asp:Label ID="Mensagem" Visivel="false" runat="server" Text="Mensagem:"></asp:Label>
