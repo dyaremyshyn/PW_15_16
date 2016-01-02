@@ -41,9 +41,15 @@
         <p></p>
         <br />
         <h3><asp:Label ID="Label11" runat="server" Text="Pedido"></asp:Label></h3>
-        <asp:TextBox ID="txtPedido" runat="server" TextMode="MultiLine"></asp:TextBox>
+        <asp:TextBox ID="txtPedido" runat="server" TextMode="MultiLine" ReadOnly="true"></asp:TextBox>
         <p></p>
-
+        <asp:Label ID="Label12" runat="server" Text="Situação: "></asp:Label>
+        <asp:CheckBoxList ID="cblSituacao" runat="server">
+            <asp:ListItem>Em andamento</asp:ListItem>
+            <asp:ListItem>Por começar</asp:ListItem>
+        </asp:CheckBoxList>
+        <p></p>
+        <asp:Button ID="btnRegistar" runat="server" Text="Registar" />
     </div>
 </asp:Content>
 
