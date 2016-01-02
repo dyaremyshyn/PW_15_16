@@ -63,6 +63,7 @@ public partial class Comandante_Pedido : System.Web.UI.Page
     {
         bd.updatePedido(id, Situacao.SelectedValue, DataInicio.Text, DataFim.Text);
     }
+
     protected void EscreverM_Click(object sender, EventArgs e)
     {
         Mensagem.Visible = true; ;
@@ -81,4 +82,5 @@ public partial class Comandante_Pedido : System.Web.UI.Page
         Enviar.Visible = false;
         Cancelar.Visible = false;
     }
+
 }
