@@ -1,11 +1,11 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Agente/Policia.master" AutoEventWireup="true" CodeFile="QueixasRecebidas.aspx.cs" Inherits="Agente_QueixasRecebidas" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Agente/Policia.master" AutoEventWireup="true" CodeFile="QueixasRecebidasNaoVistas.aspx.cs" Inherits="Agente_QueixasRecebidasNaoVistas" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder3" Runat="Server">
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder4" Runat="Server">
-    <h1> <asp:Label ID="Label2" runat="server" Text="Queixas Recebidas"></asp:Label> </h1>
+    <h1> <asp:Label ID="Label2" runat="server" Text="Queixas Não Vistas"></asp:Label> </h1>
     <p></p>
     <asp:ImageButton ID="back"  Width="25" ImageUrl="~/images/back.png" runat="server" OnClick="back_Click"/>
      <asp:Label ID="QueixaL" runat="server"  Text="Queixa:"></asp:Label>
@@ -26,7 +26,9 @@
     <asp:Label ID="Nomeprocessol" Visible="false" runat="server" Text="Nome do Processo:"></asp:Label>
     <asp:DropDownList ID="Processo" Visible="false" runat="server"></asp:DropDownList>
     <asp:TextBox ID="Processot" Visible="false" runat="server"></asp:TextBox>
-    
+    <p></p>
+    <asp:Label ID="Agentel" Visible="false" runat="server" Text="Agente Responsavel:"></asp:Label>
+    <asp:DropDownList ID="Agente" Visible="false" runat="server"></asp:DropDownList>
     <p></p>
     <asp:Button ID="Aprovar"  runat="server" Text="Aprovar" OnClick="Aprovar_Click" />
 </asp:Content>

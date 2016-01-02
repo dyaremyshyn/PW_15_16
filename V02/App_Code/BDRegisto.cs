@@ -1800,7 +1800,7 @@ public class BDRegisto
     public DataTable getHorarioLaboral(string datainicio, string datafim, string distintivo){
         DateTime horainicial = Convert.ToDateTime(datainicio);
         DateTime horafinal = Convert.ToDateTime(datafim);
-
+        distintivo = getDisintivoUser(distintivo);
         string sql = "Select DATA_FIM_P, HORAENTRADA, HORASAIDA FROM HORARIO WHERE DISTINTIVO =@DIS AND DATA_FIM_P >= @DATA1 AND DATA_FIM_P <=@DATA2";
         DataTable data = new DataTable();
         DateTime d = DateTime.Today;
