@@ -15,9 +15,6 @@ public partial class Comandante_CidadaoDados : System.Web.UI.Page
         ListItem it = new ListItem("Selecione");
         if (!IsPostBack)
         {
-            
-            
-            
             DataTable dados = bd.getCidadaoPorId(Request.QueryString["id"]);
             Nome.Text =(string)dados.Rows[0]["NOME"];
            

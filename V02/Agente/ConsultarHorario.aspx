@@ -19,7 +19,7 @@
     <p></p>
     <asp:Button ID="btnPesquisaHorario" runat="server" Text="Ver Horario" OnClick="btnPesquisaHorario_Click" />
     <div runat="server" id="myDiv" visible="false" >
-        <h2>Horário</h2>
+        <h3>Horário</h3>
         <asp:GridView ID="gvHorario" runat="server"></asp:GridView>
         <p></p>
         <h3>Operações</h3>
@@ -32,7 +32,7 @@
         <asp:GridView ID="gvFormacoes" runat="server"></asp:GridView>
         <p></p> 
         <asp:Label ID="Label4" runat="server" Text="Info Extra: "></asp:Label>
-        <asp:TextBox ID="txtInfoExtra" runat="server" ReadOnly="true" TextMode="MultiLine"></asp:TextBox>
+        <asp:TextBox ID="txtInfoExtra" runat="server" ReadOnly="true" TextMode="MultiLine" placeholder="Sem Informações Extra"></asp:TextBox>
     </div>
 
 </asp:Content>

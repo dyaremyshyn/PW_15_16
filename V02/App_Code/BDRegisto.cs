@@ -1819,10 +1819,32 @@ public class BDRegisto
 
     public DataTable getHorarioOperacoes(string datainicio, string datafim, string distintivo)
     {
+        //if (datainicio != null && datafim != null) {
+            DateTime horainicial = Convert.ToDateTime(datainicio);
+            DateTime horafinal = Convert.ToDateTime(datafim);
+            distintivo = getDisintivoUser(distintivo);
+            string sql = "Select DATAOPERA, HORAINICIOOPE,  TIPOOPERACAO FROM OPERACOES O, REALIZADAPOR R WHERE O.CODOPERACAO = R.CODOPERACAO AND DISTINTIVO =@DIS AND DATAOPERA >= @DATA1 AND DATAOPERA <=@DATA2";
+            DataTable data = new DataTable();
+            DateTime d = DateTime.Today;
+            this.cn.ConnectionString = this.connectionString;
+            SqlCommand cmd = new SqlCommand(sql, cn);
+            cmd.Parameters.AddWithValue("@DIS", distintivo);
+        cmd.Parameters.AddWithValue("@DATA1", horainicial);
+        cmd.Parameters.AddWithValue("@DATA2", horafinal);
+        cn.Open();
+        data.Load(cmd.ExecuteReader());
+        cn.Close();
+        return data;
+        
+    }
+
+
+    public DataTable getHorarioTreinos(string datainicio, string datafim, string distintivo)
+    {
         DateTime horainicial = Convert.ToDateTime(datainicio);
         DateTime horafinal = Convert.ToDateTime(datafim);
         distintivo = getDisintivoUser(distintivo);
-        string sql = "Select DATAOPERA, HORAINICIOOPE,  TIPOOPERACAO FROM OPERACOES O, REALIZADAPOR R WHERE O.CODOPERACAO = R.CODOPERACAO AND DISTINTIVO =@DIS AND DATAOPERA >= @DATA1 AND DATAOPERA <=@DATA2";
+        string sql = "Select TITULOTREINO, DATA_TREINO, HORA_INICIO_TREINO,  HORA_FIM_TREINO FROM TREINOS WHERE DISTINTIVO =@DIS AND DATA_TREINO >= @DATA1 AND DATA_TREINO <=@DATA2";
         DataTable data = new DataTable();
         DateTime d = DateTime.Today;
         this.cn.ConnectionString = this.connectionString;
@@ -1836,4 +1858,47 @@ public class BDRegisto
         return data;
 
     }
+
+
+
+
+    public DataTable getHorarioFormacoes(string datainicio, string datafim, string distintivo)
+    {
+        DateTime horainicial = Convert.ToDateTime(datainicio);
+        DateTime horafinal = Convert.ToDateTime(datafim);
+        distintivo = getDisintivoUser(distintivo);
+        string sql = "Select TITULOFORMACAO, DATAFORMACAO,  HORAFORMACAO, FORMADOR FROM FORMACOES F, ALUNOS A WHERE F.CODFORMACAO = A.CODFORMACAO AND DISTINTIVO =@DIS AND DATAFORMACAO >= @DATA1 AND DATAFORMACAO <=@DATA2";
+        DataTable data = new DataTable();
+        DateTime d = DateTime.Today;
+        this.cn.ConnectionString = this.connectionString;
+        SqlCommand cmd = new SqlCommand(sql, cn);
+        cmd.Parameters.AddWithValue("@DIS", distintivo);
+        cmd.Parameters.AddWithValue("@DATA1", horainicial);
+        cmd.Parameters.AddWithValue("@DATA2", horafinal);
+        cn.Open();
+        data.Load(cmd.ExecuteReader());
+        cn.Close();
+        return data;
+
+    }
+    /*
+    public string getDescricaoOperacoes(string datainicio, string datafim, string distintivo)
+    {
+        String descricao;
+        DateTime horainicial = Convert.ToDateTime(datainicio);
+        DateTime horafinal = Convert.ToDateTime(datafim);
+        distintivo = getDisintivoUser(distintivo);
+        string sql = "Select DESCRICAOOPERACAO FROM OPERACOES O, REALIZADAPOR R WHERE O.CODOPERACAO = R.CODOPERACAO AND DISTINTIVO =@DIS AND DATAOPERA >= @DATA1 AND DATAOPERA <=@DATA2";
+
+        this.cn.ConnectionString = this.connectionString;
+        SqlCommand cmd = new SqlCommand(sql, cn);
+        cmd.Parameters.AddWithValue("@DIS", distintivo);
+        cmd.Parameters.AddWithValue("@DATA1", horainicial);
+        cmd.Parameters.AddWithValue("@DATA2", horafinal);
+        cn.Open();
+        descricao.te
+        cn.Close();
+
+    }
+   */
 }
