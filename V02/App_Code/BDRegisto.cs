@@ -1815,4 +1815,25 @@ public class BDRegisto
         return data;
 
     }
+
+
+    public DataTable getHorarioOperacoes(string datainicio, string datafim, string distintivo)
+    {
+        DateTime horainicial = Convert.ToDateTime(datainicio);
+        DateTime horafinal = Convert.ToDateTime(datafim);
+
+        string sql = "Select DATAOPERA, HORAINICIOOPE,  TIPOOPERACAO FROM OPERACOES O REALIZADAPOR R WHERE O.CODOPERACAO=R.CODOPERACAO AND DISTINTIVO =@DIS AND DATAOPERA >= @DATA1 AND DATAOPERA <=@DATA2";
+        DataTable data = new DataTable();
+        DateTime d = DateTime.Today;
+        this.cn.ConnectionString = this.connectionString;
+        SqlCommand cmd = new SqlCommand(sql, cn);
+        cmd.Parameters.AddWithValue("@DIS", distintivo);
+        cmd.Parameters.AddWithValue("@DATA1", horainicial);
+        cmd.Parameters.AddWithValue("@DATA2", horafinal);
+        cn.Open();
+        data.Load(cmd.ExecuteReader());
+        cn.Close();
+        return data;
+
+    }
 }
