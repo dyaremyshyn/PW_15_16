@@ -1950,5 +1950,64 @@ public class BDRegisto
         cmd.Dispose();
         cn.Close();
     }
+
+
+    public DataTable getMeusPedidosNotas(string pedido){
+        string sql = "Select * From NOTAS  WHERE COD_PEDIDO ='" + pedido + "'";
+        this.cn.ConnectionString = this.connectionString;
+        SqlCommand cmd = new SqlCommand(sql, cn);
+        DataTable data = new DataTable();
+        SqlDataAdapter da = new SqlDataAdapter();
+        cmd.CommandType = CommandType.Text;
+        cmd.Connection = cn;
+        da.SelectCommand = cmd;
+        da.Fill(data);
+
+
+
+        return data;
+    }
+
+    public DataTable getMinhaQUeixasMensagens( string queixa)
+    {
+        string sql = "Select * From MENSAGEM  WHERE COD_QUEIXA ='" + queixa + "'";
+        this.cn.ConnectionString = this.connectionString;
+        SqlCommand cmd = new SqlCommand(sql, cn);
+        DataTable data = new DataTable();
+        SqlDataAdapter da = new SqlDataAdapter();
+        cmd.CommandType = CommandType.Text;
+        cmd.Connection = cn;
+        da.SelectCommand = cmd;
+        da.Fill(data);
+        return data;
+    }
+
+    public DataTable getNota(string nota)
+    {
+        string sql = "Select * From MENSAGEM  WHERE IDNOTA ='" + nota + "'";
+        this.cn.ConnectionString = this.connectionString;
+        SqlCommand cmd = new SqlCommand(sql, cn);
+        DataTable data = new DataTable();
+        SqlDataAdapter da = new SqlDataAdapter();
+        cmd.CommandType = CommandType.Text;
+        cmd.Connection = cn;
+        da.SelectCommand = cmd;
+        da.Fill(data);
+        return data;
+    }
+
+    public DataTable getMensagem(string mensagem)
+    {
+        string sql = "Select * From MENSAGEM  WHERE IDMENSAGEM ='" + mensagem + "'";
+        this.cn.ConnectionString = this.connectionString;
+        SqlCommand cmd = new SqlCommand(sql, cn);
+        DataTable data = new DataTable();
+        SqlDataAdapter da = new SqlDataAdapter();
+        cmd.CommandType = CommandType.Text;
+        cmd.Connection = cn;
+        da.SelectCommand = cmd;
+        da.Fill(data);
+        return data;
+    }
  
 }
