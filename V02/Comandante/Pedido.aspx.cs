@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Web;
+using System.Web.Security;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -61,5 +62,23 @@ public partial class Comandante_Pedido : System.Web.UI.Page
     protected void Gravar_Click(object sender, EventArgs e)
     {
         bd.updatePedido(id, Situacao.SelectedValue, DataInicio.Text, DataFim.Text);
+    }
+    protected void EscreverM_Click(object sender, EventArgs e)
+    {
+        Mensagem.Visible = true; ;
+        TextBox1.Visible = true;
+        Enviar.Visible = true;
+        Cancelar.Visible = true;
+    }
+    protected void Enviar_Click(object sender, EventArgs e)
+    {
+        bd.inserNota(id, Membership.GetUser().ProviderUserKey.ToString(), TextBox1.Text);
+    }
+    protected void Cancelar_Click(object sender, EventArgs e)
+    {
+        Mensagem.Visible = false; ;
+        TextBox1.Visible = false;
+        Enviar.Visible = false;
+        Cancelar.Visible = false;
     }
 }

@@ -1836,4 +1836,54 @@ public class BDRegisto
         return data;
 
     }
+
+    public void inserNota(string codPedido, string agente, string texto)
+    {
+       
+        
+        this.cn.ConnectionString = this.connectionString;
+        string sql = "Insert INTO NOTAS (COD_PEDIDO,DISTINTIVO,MENSAGEM,DATA) VALUES(@ped,@dis,@mens,@data)";
+        SqlCommand cmd = new SqlCommand(sql, cn);
+        cmd.Parameters.AddWithValue("@ped", Convert.ToInt32(codPedido));
+        cmd.Parameters.AddWithValue("@dis", getDisintivoUser(agente));
+        cmd.Parameters.AddWithValue("@mens", texto);
+        cmd.Parameters.AddWithValue("@data", DateTime.Now);
+    
+
+
+
+
+        cn.Open();
+       
+        cmd.ExecuteNonQuery();
+        cmd.Dispose();
+        cn.Close();
+    }
+
+
+
+
+    public void inserMensagem(string codPedido, string agente, string texto)
+    {
+
+
+        this.cn.ConnectionString = this.connectionString;
+        string sql = "Insert INTO MENSAGEM (COD_QUEIXA,DISTINTIVO,MENSAGEM,DATA) VALUES(@ped,@dis,@mens,@data)";
+        SqlCommand cmd = new SqlCommand(sql, cn);
+        cmd.Parameters.AddWithValue("@ped", Convert.ToInt32(codPedido));
+        cmd.Parameters.AddWithValue("@dis", getDisintivoUser(agente));
+        cmd.Parameters.AddWithValue("@mens", texto);
+        cmd.Parameters.AddWithValue("@data", DateTime.Now);
+
+
+
+
+
+        cn.Open();
+
+        cmd.ExecuteNonQuery();
+        cmd.Dispose();
+        cn.Close();
+    }
+    
 }
