@@ -18,10 +18,10 @@ public partial class Agente_ConsultarHorario : System.Web.UI.Page
     }
     protected void btnPesquisaHorario_Click(object sender, EventArgs e)
     {
-
-        gvHorario.DataSource = bd.getHorarioLaboral(txtInicio.Text, txtFim.Text, Membership.GetUser().ProviderUserKey.ToString());
         myDiv.Visible = true;
-
+        gvHorario.DataSource = bd.getHorarioLaboral(txtInicio.Text, txtFim.Text, Membership.GetUser().ProviderUserKey.ToString());
         gvHorario.DataBind();
+
+
     }
 }
