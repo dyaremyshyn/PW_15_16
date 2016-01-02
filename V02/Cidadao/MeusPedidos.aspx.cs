@@ -9,6 +9,7 @@ using System.Web.UI.WebControls;
 
 public partial class Cidadao_MeusPedidos : System.Web.UI.Page
 {
+    static string pedidoatual,notaactual="";
     protected void Page_Load(object sender, EventArgs e)
     {
         BDRegisto bd = new BDRegisto();
@@ -21,7 +22,7 @@ public partial class Cidadao_MeusPedidos : System.Web.UI.Page
             Pedidos.DataValueField = "COD_PEDIDO";
             Pedidos.DataBind();
             Pedidos.Items.Insert(0, aux);
-
+            pedidoatual = Pedidos.SelectedValue;
         }
         else
         {
@@ -53,6 +54,26 @@ public partial class Cidadao_MeusPedidos : System.Web.UI.Page
                     {
                         Situacao.SelectedIndex = 2;
                     }
+                }
+
+                if (pedidoatual != Pedidos.SelectedValue)
+                {
+                    Notas.DataSource = bd.getMeusPedidosNotas(Pedidos.SelectedValue);
+                    Notas.DataTextField = "DATA";
+                    Notas.DataValueField = "IDNOTA";
+                    Notas.DataBind();
+                    Notas.Items.Insert(0, aux);
+                    pedidoatual = Pedidos.SelectedValue;
+                    notaactual = Notas.SelectedValue;
+                }
+
+                if (notaactual != Notas.SelectedValue)
+                {
+                    DataTable nota = bd.getNota(Notas.SelectedValue);
+                    string mensagem;
+                    mensagem = (string)nota.Rows[0]["MENSAGEM"];
+                    mensagem=mensagem+"/n"+"/n"+"Agente: "+bd.getNomeAgente(((decimal)nota.Rows[0]["MENSAGEM"]).ToString());
+
                 }
             }
             else

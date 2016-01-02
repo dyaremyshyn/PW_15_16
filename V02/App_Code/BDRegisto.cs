@@ -1984,7 +1984,7 @@ public class BDRegisto
 
     public DataTable getNota(string nota)
     {
-        string sql = "Select * From MENSAGEM  WHERE IDNOTA ='" + nota + "'";
+        string sql = "Select * From MENSAGEM M, Agente A, PESSOA P WHERE M.DISTINTIVO=A.DISTINTIVO AND   WHERE IDNOTA ='" + nota + "'";
         this.cn.ConnectionString = this.connectionString;
         SqlCommand cmd = new SqlCommand(sql, cn);
         DataTable data = new DataTable();
