@@ -12,7 +12,7 @@
     </asp:RadioButtonList>
     <p></p>
     <asp:Label ID="Pedidol" runat="server" Text="Pedido:"></asp:Label>
-    <asp:DropDownList ID="Pedido" runat="server"></asp:DropDownList>
+    <asp:DropDownList ID="Pedido" AutoPostBack="true" runat="server"></asp:DropDownList>
     
 </asp:Content>
 

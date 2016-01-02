@@ -1273,7 +1273,7 @@ public class BDRegisto
        cmd.Parameters.AddWithValue("@titulo", titulo);
        cmd.Parameters.AddWithValue("@dis", descricao);
        cmd.Parameters.AddWithValue("@estado", "NAO VISTO");
-       cmd.Parameters.AddWithValue("@situacao", "AGUARDAR");
+       cmd.Parameters.AddWithValue("@situacao", "POR COMECAR");
        cmd.Parameters.AddWithValue("@data", inicio);
        cmd.Parameters.AddWithValue("@datafim", fim);
        cn.Open();
@@ -1566,6 +1566,25 @@ public class BDRegisto
        return data;
    }
 
+
+
+    public void updatePedido(string idpedido, string situacao, string datai, string datafim){
+
+        this.cn.ConnectionString = this.connectionString;
+        DateTime datainicial = Convert.ToDateTime(datai);
+        DateTime datafinal = Convert.ToDateTime(datafim);
+        string sql = "UPDATE PEDIDO SET ESTADOPEDIDO = 'VISTO', SITUACAOPEDIDO = @sit, DATA_INICIO_P = @di, DATA_FIM_P=@df  Where COD_PEDIDO ='" + idpedido + "'";
+        SqlCommand cmd = new SqlCommand(sql, cn);
+        cmd.Parameters.AddWithValue("@sit", situacao);
+        cmd.Parameters.AddWithValue("@di", datainicial);
+        cmd.Parameters.AddWithValue("@df", datafinal);
+
+        cn.Open();
+        cmd.ExecuteNonQuery();
+        cmd.Dispose();
+        cn.Close();
+    }
+
    public DataTable getPedidosVisto()
    {
        string sql = "Select * From Pedido where ESTADOPEDIDO like 'VISTO'";
@@ -1776,5 +1795,24 @@ public class BDRegisto
 
 
         return data;
+    }
+
+    public DataTable getHorarioLaboral(string datainicio, string datafim, string distintivo){
+        DateTime horainicial = Convert.ToDateTime(datainicio);
+        DateTime horafinal = Convert.ToDateTime(datafim);
+
+        string sql = "Select DATA_FIM_P, HORAENTRADA, HORASAIDA FROM HORARIO WHERE DISTINTIVO =@DIS AND DATA_FIM_P >= @DATA1 AND DATA_FIM_P <=@DATA2";
+        DataTable data = new DataTable();
+        DateTime d = DateTime.Today;
+        this.cn.ConnectionString = this.connectionString;
+        SqlCommand cmd = new SqlCommand(sql, cn);
+        cmd.Parameters.AddWithValue("@DIS", distintivo);
+        cmd.Parameters.AddWithValue("@DATA1", horainicial);
+        cmd.Parameters.AddWithValue("@DATA2", horafinal);
+        cn.Open();
+        data.Load(cmd.ExecuteReader());
+        cn.Close();
+        return data;
+
     }
 }

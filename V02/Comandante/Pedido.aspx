@@ -8,9 +8,16 @@
     <asp:Label ID="Autorl" runat="server" Text="Autor:"></asp:Label>
     <asp:HyperLink ID="Autor" runat="server">HyperLink</asp:HyperLink>
     <p></p>
-    <asp:TextBox ID="pedidotexto" TextMode="MultiLine" Columns="60" Rows="10" runat="server"></asp:TextBox>
+    <asp:TextBox ID="pedidotexto" ReadOnly="true" TextMode="MultiLine" Columns="60" Rows="10" runat="server"></asp:TextBox>
     <p></p>
+     <asp:Label ID="Situacaol" runat="server" Text="Situacao:"></asp:Label>
     <asp:RadioButtonList ID="Situacao" runat="server"></asp:RadioButtonList>
+    <p></p>
+    <asp:Label ID="DataIl" runat="server" Text="Data de Inicio:"></asp:Label>
+    <asp:TextBox ID="DataInicio" TextMode="Date" runat="server"></asp:TextBox>
+    <p></p>
+    <asp:Label ID="Datafiml" runat="server" Text="Data de Fim:"></asp:Label>
+    <asp:TextBox ID="DataFim" TextMode="Date" runat="server"></asp:TextBox>
     <p></p>
     <asp:Button ID="Gravar" runat="server" Text="Button" OnClick="Gravar_Click" />
 </asp:Content>
