@@ -8,9 +8,11 @@
                
                     <asp:Image ID="Image1" ImageUrl="~/images/TGenCouto.jpg" runat="server" />
                     <span>
-                    <p class="espacamento">Aqui terá acesso a todas as funcionalidades do nosso website. </p>
-                     <p class="espacamento">Poderá marcar consultas, registar os seus animais, entre outras coisas. </p>
-                     <p class="espacamento">Obrigada por preferir a MobilVet. </p>
+                    <p class="espacamento">A Guarda Nacional Republicana é uma força de segurança de natureza militar,   </p>
+                     <p class="espacamento">constituída por militares organizados num corpo especial de tropas e dotada de autonomia administrativa,  </p>
+                     <p class="espacamento">com jurisdição em todo o território nacional e no mar territorial. Pela sua natureza e polivalência, </p>
+                        <p class="espacamento"> a GNR encontra o seu posicionamento institucional no conjunto das forças militares e das forças e serviços de segurança,  </p>
+                        <p class="espacamento">sendo a única força de segurança com natureza e organização militares, caracterizando-se como uma Força Militar de Segurança Pública. </p>
                     </span>
                
                     
