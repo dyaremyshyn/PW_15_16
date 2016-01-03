@@ -19,8 +19,7 @@
     <asp:Label ID="Datafiml" runat="server" Text="Data de Fim:"></asp:Label>
     <asp:TextBox ID="DataFim" TextMode="Date" runat="server"></asp:TextBox>
     <p></p>
-    <asp:Button ID="Gravar" runat="server" Text="Button" OnClick="Gravar_Click" />
-        <asp:Button ID="Button1" runat="server" Text="Grava" OnClick="Gravar_Click" /> &nbsp;
+        <asp:Button ID="Gravar" runat="server" Text="Grava" OnClick="Gravar_Click" /> &nbsp;
     <asp:Button ID="EscreverM" runat="server" Text="Escrever Nota" OnClick="EscreverM_Click" />
     <p></p>
     <asp:Label ID="Mensagem" Visivel="false" runat="server" Text="Nota:"></asp:Label>

@@ -28,7 +28,7 @@
 
     <asp:FileUpload Visible="false" ID="FileUpload1" runat="server" />
    
-    <asp:Button ID="Submeter" Visible="false" runat="server" Text="Submeter" OnClick="Submeter_Click" />
+    <asp:Button ID="Submeter" Visible="false" runat="server" Text="Submeter" OnClick="Submeter_Click" BackColor="Green" BorderStyle="Groove" BorderColor="Black" Font-Bold="True" ForeColor="White"/>
     <asp:Button ID="Anular" Visible="false" runat="server" Text="Anular" OnClick="Anular_Click" />
     <asp:Button ID="NovaInformação" BackColor="SteelBlue" runat="server" Text="Nova Informação" OnClick="NovaInformação_Click" />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 

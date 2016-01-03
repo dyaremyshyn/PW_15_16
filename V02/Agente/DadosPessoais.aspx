@@ -48,7 +48,7 @@
     <asp:Label ID="Armasl" runat="server" Text="Armas:"></asp:Label>
     <asp:DropDownList ID="Armas" runat="server"></asp:DropDownList>
     <p></p>
-    <asp:Button ID="EditarDados" runat="server" Text="Editar Dados:" OnClick="EditarDados_Click" />
+    <asp:Button ID="EditarDados" runat="server" Text="Editar Dados:" OnClick="EditarDados_Click" BackColor="Green" BorderStyle="Groove" BorderColor="Black" Font-Bold="True" ForeColor="White" />
     <asp:Button ID="Atualizar" Visible="false" runat="server" Text="Atualizar" OnClick="Atualizar_Click" />&nbsp;
     <asp:Button ID="Cancelar" Visible="false" runat="server" Text="Cancelar" OnClick="Cancelar_Click" />
     

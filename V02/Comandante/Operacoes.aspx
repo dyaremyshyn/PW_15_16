@@ -11,7 +11,7 @@
     <p></p>
     <asp:GridView ID="op" runat="server"></asp:GridView>
     <p></p>
-    <asp:Button ID="NovaOperacao" runat="server" Text="NovaOperacao" OnClick="NovaOperacao_Click" />
+    <asp:Button ID="NovaOperacao" runat="server" Text="NovaOperacao" OnClick="NovaOperacao_Click" BackColor="Green" BorderStyle="Groove" BorderColor="Black" Font-Bold="True" ForeColor="White"/>
     <asp:Label ID="NomeL" visible="false" runat="server" Text="Nome Da Operação:"></asp:Label>
     <asp:TextBox ID="NomeDaOperacao" visible="false" runat="server"></asp:TextBox>
     <p></p>

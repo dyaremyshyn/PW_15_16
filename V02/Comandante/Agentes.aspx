@@ -7,8 +7,10 @@
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder4" Runat="Server">
      <h1> <asp:Label ID="Label2" runat="server" Text="Agentes"></asp:Label> </h1>
+    <p></p>
     <asp:Label ID="NomeL" runat="server" Text="Nome:"></asp:Label>
-    <asp:DropDownList ID="Nome" AutoPostBack="true" runat="server"></asp:DropDownList>
+    <asp:DropDownList ID="Nome" AutoPostBack="true" runat="server"></asp:DropDownList> &nbsp; 
+    <asp:ImageButton ID="back"  Width="25" ImageUrl="~/images/delete.jpg" runat="server" OnClick="back_Click"/>
     <p></p>
     <asp:Image ID="Image1" Width="150px" Height="120" runat="server" />
     <p></p>

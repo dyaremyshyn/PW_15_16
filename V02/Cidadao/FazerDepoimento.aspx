@@ -15,7 +15,7 @@
   <asp:Label ID="Depoimentol" runat="server" Text="Depoimento:"></asp:Label>
     <asp:TextBox ID="Depoimento" TextMode="MultiLine" Rows="15" Columns="60" runat="server"></asp:TextBox>
     <p></p>
-    <asp:Button ID="Enviar" runat="server" Text="Enviar" OnClick="Enviar_Click" />&nbsp; 
+    <asp:Button ID="Enviar" runat="server" Text="Enviar" OnClick="Enviar_Click" BackColor="Green" BorderStyle="Groove" BorderColor="Black" Font-Bold="True" ForeColor="White" />&nbsp; 
     <asp:Button ID="Cancelar" runat="server" Text="Cancelar" OnClick="Cancelar_Click" />
 </asp:Content>
 

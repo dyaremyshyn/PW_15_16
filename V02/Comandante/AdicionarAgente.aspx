@@ -9,7 +9,7 @@
     <asp:Label ID="Label1" runat="server" Text="Numero de Cidadão:"></asp:Label>
     <asp:TextBox ID="Cidadao" runat="server"></asp:TextBox>
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    <asp:Button ID="PesquisaCidadao" runat="server" Text="Pesquisa" OnClick="PesquisaCidadao_Click" />
+    <asp:Button ID="PesquisaCidadao" runat="server" Text="Pesquisa" OnClick="PesquisaCidadao_Click" BackColor="Green" BorderStyle="Groove" BorderColor="Black" Font-Bold="True" ForeColor="White" />
     <p></p>
     Resultado:<asp:Label ID="Info" runat="server" ForeColor="Red"  Text=""></asp:Label>
     <p></p>
@@ -69,7 +69,7 @@
     <asp:TextBox ID="id" Visible="false" ReadOnly="true" runat="server"></asp:TextBox>
     <p></p>
     
-    <asp:Button ID="InserirAgente" Visible="false" runat="server" Text="Inserir Agente" OnClick="InserirAgente_Click" />
+    <asp:Button ID="InserirAgente" Visible="false" runat="server" Text="Inserir Agente" OnClick="InserirAgente_Click" BackColor="Green" BorderStyle="Groove" BorderColor="Black" Font-Bold="True" ForeColor="White" />
     <p></p>
     <asp:Label ID="reslabel" Visible="false" runat="server" Text="Resultado:"></asp:Label><asp:Label ID="Resultado" Visible="false" runat="server" Text=""></asp:Label>
 

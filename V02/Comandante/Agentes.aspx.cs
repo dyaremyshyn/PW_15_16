@@ -48,4 +48,8 @@ public partial class Comandante_Agentes : System.Web.UI.Page
             }
         }
     }
+    protected void back_Click(object sender, ImageClickEventArgs e)
+    {
+        Response.Redirect("RemoverAgente.aspx");
+    }
 }

@@ -11,8 +11,7 @@
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     <asp:Button ID="PesquisaAgente" runat="server" Text="Pesquisa" OnClick="PesquisaAgente_Click" BackColor="Green" BorderStyle="Groove" BorderColor="Black" Font-Bold="True" ForeColor="White" />
     <p></p>
-    Resultado:<asp:HyperLink ID="Autor" Target="_blank" runat="server" NavigateUrl="~/Comandante/Agentes.aspx"></asp:HyperLink>
-    <asp:Label ID="Info" runat="server" ForeColor="Red"  Text=""></asp:Label>
+    <asp:Label ID="Info" runat="server" Text="Resultado: "></asp:Label><asp:TextBox ID="txtResultado" runat="server" ReadOnly="true"></asp:TextBox>
     <p></p>
 
     <asp:Button ID="EliminarAgente" Visible="false" runat="server" Text="Eliminar Agente" OnClick="EliminarAgente_Click" BackColor="Green" BorderStyle="Groove" BorderColor="Black" Font-Bold="True" ForeColor="White" />
