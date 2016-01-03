@@ -6,7 +6,7 @@
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder4" Runat="Server" >
                   <h1>Bem-vindo à sua área reservada Comandante!</h1>
                
-                    <asp:Image ID="Image1" ImageUrl="~/images/templatemo_photo2.jpg" runat="server" />
+                    <asp:Image ID="Image1" ImageUrl="~/images/TGenCouto.jpg" runat="server" />
                     <span>
                     <p class="espacamento">A Guarda Nacional Republicana é uma força de segurança de natureza militar,   </p>
                      <p class="espacamento">constituída por militares organizados num corpo especial de tropas e dotada de autonomia administrativa,  </p>
