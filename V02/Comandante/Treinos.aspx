@@ -9,7 +9,7 @@
     <asp:Label ID="Treinolabel" runat="server" Text="Formações Agendadas:"></asp:Label>
     <asp:DropDownList ID="TreinosAgendados" runat="server"></asp:DropDownList>
     <p></p>
-    <asp:Button ID="NovoTreino" runat="server" Text="Novo Treino" OnClick="NovoTreino_Click" />
+    <asp:Button ID="NovoTreino" runat="server" Text="Novo Treino" OnClick="NovoTreino_Click" BackColor="Green" BorderStyle="Groove" BorderColor="Black" Font-Bold="True" ForeColor="White"/>
     <asp:Label ID="DataL" Visible="false" runat="server" Text="Data:"></asp:Label>
     <asp:Calendar ID="Data" Visible="false" runat="server"></asp:Calendar>
     <p></p>

@@ -17,7 +17,7 @@
     &nbsp&nbsp&nbsp&nbsp
     <asp:Calendar ID="Calendar1" AutoPostBack="true" Visible="false" SelectionMode="Day" runat="server"></asp:Calendar>
     <p></p>
-    <asp:Button ID="btnPesquisaHorario" runat="server" Text="Ver Horario" OnClick="btnPesquisaHorario_Click" />
+    <asp:Button ID="btnPesquisaHorario" runat="server" Text="Ver Horario" OnClick="btnPesquisaHorario_Click" BackColor="Green" BorderStyle="Groove" BorderColor="Black" Font-Bold="True" ForeColor="White" />
     <div runat="server" id="myDiv" visible="false" >
         <h3>Horário</h3>
         <asp:GridView ID="gvHorario" runat="server"></asp:GridView>

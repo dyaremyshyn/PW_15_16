@@ -30,7 +30,7 @@
     <p></p>
     <asp:CheckBox ID="Encerrar" Visible="false" runat="server" Text="Encerrar Processo" />
     <p>
-        <asp:Button ID="ActualizarProcesso" Visible="false" runat="server" Text="Actualizar" />
+        <asp:Button ID="ActualizarProcesso" Visible="false" runat="server" Text="Actualizar" BackColor="Green" BorderStyle="Groove" BorderColor="Black" Font-Bold="True" ForeColor="White" />
     </p>
  
 </asp:Content>

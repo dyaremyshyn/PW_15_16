@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Web;
+using System.Web.Security;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -79,5 +80,26 @@ public partial class Agente_QueixasRecebidasVistas : System.Web.UI.Page
     protected void Aprovar_Click(object sender, EventArgs e)
     {
 
+    }
+
+    protected void Encrever_Click(object sender, EventArgs e)
+    {
+        Mensagem.Visible = true;
+        TextBox2.Visible = true;
+        Enviar.Visible = true;
+        Cancelar.Visible = true;
+    }
+    protected void Enviar_Click(object sender, EventArgs e)
+    {
+        BDRegisto bd = new BDRegisto();
+        bd.inserMensagem(QueixaDD.SelectedValue, Membership.GetUser().ProviderUserKey.ToString(), TextBox2.Text);
+        TextBox2.Text = "Mensagem Enviada";
+    }
+    protected void Cancelar_Click(object sender, EventArgs e)
+    {
+        Mensagem.Visible = false;
+        TextBox2.Visible = false;
+        Enviar.Visible = false;
+        Cancelar.Visible = false;
     }
 }

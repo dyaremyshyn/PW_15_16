@@ -21,7 +21,7 @@
     <asp:Label ID="Datafiml" runat="server" Text="Data de Fim:"></asp:Label>
     <asp:TextBox ID="Datafim" TextMode="Date" runat="server"></asp:TextBox>
     <p></p>
-    <asp:Button ID="Enviar" ForeColor="Green" runat="server" Text="Enviar" OnClick="Enviar_Click" />
+    <asp:Button ID="Enviar" runat="server" Text="Enviar" OnClick="Enviar_Click" BackColor="Green" BorderStyle="Groove" BorderColor="Black" Font-Bold="True" ForeColor="White" />
 &nbsp;&nbsp;&nbsp;&nbsp; 
     <asp:Button ID="Cancelar" ForeColor="Red" runat="server" Text="Cancelar" OnClick="Cancelar_Click" />
 </asp:Content>

@@ -39,6 +39,6 @@
        <asp:Label ID="Label1" runat="server" Text="Resultado:"></asp:Label>
         <asp:DropDownList ID="resultado" runat="server"></asp:DropDownList>
    
-    <asp:Button ID="Ver" runat="server" Text="Pesquisar" OnClick="Pesquisar_Click" />
+    <asp:Button ID="Ver" runat="server" Text="Pesquisar" OnClick="Pesquisar_Click" BackColor="Green" BorderStyle="Groove" BorderColor="Black" Font-Bold="True" ForeColor="White"/>
 </asp:Content>
 

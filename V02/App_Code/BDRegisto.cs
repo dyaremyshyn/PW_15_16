@@ -2009,5 +2009,30 @@ public class BDRegisto
         da.Fill(data);
         return data;
     }
- 
+
+    public void elimindaAgente(string distintivo)
+    {
+        DataTable registos;
+        distintivo = getDisintivoUser(distintivo);
+        SqlDataAdapter dataAdapter= new SqlDataAdapter();
+        this.cn.ConnectionString = this.connectionString;
+
+        SqlCommand deleteCmd = new SqlCommand();
+        deleteCmd.Connection = cn;
+        deleteCmd.CommandText = "DELETE FROM AGENTE WHERE DISTINTIVO = @DIS;";
+
+        SqlParameter p = new SqlParameter();
+        p.ParameterName = "@DIS";
+        p.SourceColumn = "DISTINTIVO";
+        deleteCmd.Parameters.Add(p);
+
+        dataAdapter.DeleteCommand = deleteCmd;
+
+        DataSet ds = new DataSet();
+
+        dataAdapter.Fill(ds, "AGENTE");
+
+        registos = ds.Tables["AGENTE"];
+
+    }
 }

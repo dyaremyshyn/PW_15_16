@@ -21,7 +21,7 @@
     <p></p>
     <asp:Label ID="Label4" runat="server" Visible="false" Text="Hora de Saida"></asp:Label>
     <asp:DropDownList ID="HoraS" Visible="false" AutoPostBack="true" runat="server"></asp:DropDownList>
-    <asp:Button ID="EditarHorario" runat="server" Text="Editar Horario" OnClick="Button1_Click" />
+    <asp:Button ID="EditarHorario" runat="server" Text="Editar Horario" OnClick="Button1_Click" BackColor="Green" BorderStyle="Groove" BorderColor="Black" Font-Bold="True" ForeColor="White" />
     <asp:Button ID="GravarHorario" Visible="false" runat="server" Text="Gravar" OnClick="GravarHorario_Click" />
     <asp:Button ID="CancelarHorario" Visible="false" runat="server" Text="Cancelar" OnClick="CancelarHorario_Click" />
     

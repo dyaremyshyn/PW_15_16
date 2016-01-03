@@ -20,7 +20,6 @@ public partial class Comandante_AdicionarAgente : System.Web.UI.Page
         {
             if (bd.verificaSeNaoExisteAgente(Cidadao.Text))
             {
-
                 Info.Text = "Encontrado";
                 LabelNome.Visible = true;
                 Nome.Visible = true;

@@ -7,7 +7,7 @@
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder4" Runat="Server" >
     <h1>Bem-vindo à sua área reservada Agente!</h1>
                
-    <asp:Image ID="Image1" ImageUrl="~/images/templatemo_photo2.jpg" runat="server" />
+    <asp:Image ID="Image1" ImageUrl="~/images/Policia.jpg" runat="server" />
     <span>
         <p class="espacamento">Aqui terá acesso a todas as funcionalidades do nosso website. </p>
         <p class="espacamento">Poderá marcar consultas, registar os seus animais, entre outras coisas. </p>

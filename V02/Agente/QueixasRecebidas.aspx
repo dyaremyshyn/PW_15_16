@@ -28,6 +28,6 @@
     <asp:TextBox ID="Processot" Visible="false" runat="server"></asp:TextBox>
     
     <p></p>
-    <asp:Button ID="Aprovar"  runat="server" Text="Aprovar" OnClick="Aprovar_Click" />
+    <asp:Button ID="Aprovar"  runat="server" Text="Aprovar" OnClick="Aprovar_Click" BackColor="Green" BorderStyle="Groove" BorderColor="Black" Font-Bold="True" ForeColor="White" />
 </asp:Content>
 
