@@ -200,4 +200,10 @@ public partial class Comandante_Operacoes : System.Web.UI.Page
         Responsavell.Visible = false;
 
     }
+    protected void back_Click(object sender, ImageClickEventArgs e)
+    {
+        BDRegisto bd = new BDRegisto();
+        bd.DeleteOperacoes(OperacoesAgendadas.DataValueField);
+        ScriptManager.RegisterStartupScript(this, GetType(), "Aviso", "alert('Operação eliminada com sucesso!');", true);
+    }
 }

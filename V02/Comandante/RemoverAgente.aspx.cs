@@ -18,8 +18,6 @@ public partial class Comandante_RemoverAgente : System.Web.UI.Page
         DataTable data = new DataTable();
         if (bd.verificaSeNaoExisteAgente(txtDistintivo.Text))
         {
-            Autor.Text = (string)data.Rows[0]["NOME"];
-            Autor.NavigateUrl = Autor.NavigateUrl + "?" + "ID=" + ((int)data.Rows[0]["ID"]).ToString();
             Info.Text = "Encontrado";
             EliminarAgente.Visible = true;
         }

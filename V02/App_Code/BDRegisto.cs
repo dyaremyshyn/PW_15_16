@@ -2035,4 +2035,16 @@ public class BDRegisto
         registos = ds.Tables["AGENTE"];
 
     }
+
+
+    public void DeleteOperacoes(string codopera)
+    {
+        this.cn.ConnectionString = this.connectionString;
+        string sql = "DELETE from VICULOOPE V,REALIZADAPOR R,OPERACOES O WHERE V.CODOPERACAO=O.CODOPERACAO AND R.CODOPERACAO=O.CODOPERACAO AND  CODOPERACAO ='" + codopera + "' ";
+        SqlCommand cmd = new SqlCommand(sql, cn);
+        cn.Open();
+        cmd.ExecuteNonQuery();
+        cmd.Dispose();
+        cn.Close();
+    }
 }
